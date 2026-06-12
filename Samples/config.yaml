@@ -1,0 +1,14 @@
+# レンダリング設定のサンプル
+viewer:
+  theme: auto
+  max_width: 800
+  features:
+    - mermaid
+    - highlight
+    - live-reload
+  debounce_ms: 150
+watch:
+  ignore:
+    - node_modules
+    - .build
+  recursive: true

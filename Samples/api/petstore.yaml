@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: Pet Store API
+  version: 1.2.0
+  description: |
+    Mado の OpenAPI ドキュメントモードのデモ。**内部 $ref**・**外部ファイル $ref**・
+    **循環参照**を含む OpenAPI 3.1 スペック。
+servers:
+  - url: https://api.example.com/v1
+tags:
+  - name: pets
+    description: ペットの管理
+  - name: store
+    description: 注文
+paths:
+  /pets:
+    get:
+      tags: [pets]
+      operationId: listPets
+      summary: ペット一覧
+      parameters:
+        - name: limit
+          in: query
+          description: 最大件数
+          schema:
+            type: integer
+            maximum: 100
+            default: 20
+        - $ref: "./schemas/common.yaml#/components/parameters/PageToken"
+      responses:
+        "200":
+          description: ペットの配列
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pet"
+        default:
+          $ref: "./schemas/common.yaml#/components/responses/ErrorResponse"
+    post:
+      tags: [pets]
+      operationId: createPet
+      summary: ペット登録
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPet"
+      responses:
+        "201":
+          description: 登録されたペット
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        default:
+          $ref: "./schemas/common.yaml#/components/responses/ErrorResponse"
+  /pets/{petId}:
+    get:
+      tags: [pets]
+      operationId: getPet
+      summary: ペット取得
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: ペット
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        "404":
+          $ref: "./schemas/common.yaml#/components/responses/ErrorResponse"
+  /orders:
+    post:
+      tags: [store]
+      operationId: createOrder
+      summary: 注文作成
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/common.yaml#/components/schemas/Order"
+      responses:
+        "201":
+          description: 作成された注文
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/common.yaml#/components/schemas/Order"
+webhooks:
+  petUpdated:
+    post:
+      summary: ペット更新通知 (OpenAPI 3.1 webhooks)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pet"
+      responses:
+        "200":
+          description: 受領
+components:
+  schemas:
+    Pet:
+      allOf:
+        - $ref: "#/components/schemas/NewPet"
+        - type: object
+          required: [id]
+          properties:
+            id:
+              type: string
+              format: uuid
+            category:
+              $ref: "./schemas/common.yaml#/components/schemas/Category"
+    NewPet:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          examples: ["たま"]
+        status:
+          type: string
+          enum: [available, pending, sold]
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

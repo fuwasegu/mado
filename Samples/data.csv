@@ -1,0 +1,7 @@
+id,name,category,price,stock,"note, quoted"
+1,MacBook Pro 14,laptop,328000,12,"スペースグレイ, M4 Pro"
+2,Magic Keyboard,accessory,19800,43,"テンキー付き ""JIS"""
+3,Studio Display,monitor,219800,5,ナノテクスチャ
+4,AirPods Pro,audio,39800,120,USB-C
+5,Mac mini,desktop,98800,30,"改行入り
+セルのテスト"

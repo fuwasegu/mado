@@ -1,0 +1,55 @@
+components:
+  parameters:
+    PageToken:
+      name: pageToken
+      in: query
+      description: ページングトークン(外部ファイルで定義)
+      schema:
+        type: string
+  responses:
+    ErrorResponse:
+      description: エラー
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+        reason:
+          type: string
+    Category:
+      type: object
+      description: 循環参照を含むカテゴリツリー
+      properties:
+        name:
+          type: string
+        parent:
+          $ref: "#/components/schemas/Category"
+    Order:
+      type: object
+      required: [petId, quantity]
+      properties:
+        petId:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          minimum: 1
+        error:
+          $ref: "#/components/schemas/Error"

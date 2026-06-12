@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="vendor/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="vendor/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="findbar" hidden>
+  <input id="find-input" type="text" placeholder="検索" spellcheck="false" autocomplete="off">
+  <span id="find-count"></span>
+  <button id="find-prev" title="前へ (⇧↩)">‹</button>
+  <button id="find-next" title="次へ (↩)">›</button>
+  <button id="find-close" title="閉じる (esc)">✕</button>
+</div>
+<div id="content">
+  <div class="welcome">
+    <h1>Mado</h1>
+    <p>サイドバーからファイルを選択してください</p>
+  </div>
+</div>
+<button id="api-toggle" hidden></button>
+<script src="vendor/markdown-it.min.js"></script>
+<script src="vendor/markdown-it-task-lists.min.js"></script>
+<script src="vendor/js-yaml.min.js"></script>
+<script src="vendor/highlight.min.js"></script>
+<script src="vendor/morphdom-umd.min.js"></script>
+<script src="vendor/mermaid.min.js"></script>
+<script src="viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+lang	parser	speed
+Swift	cmark-gfm	fast
+JS	markdown-it	fast enough
+Rust	comrak	fast

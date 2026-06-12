@@ -1,0 +1,10 @@
+{
+  "name": "markdown-viewer",
+  "version": "0.2.0",
+  "features": {
+    "mermaid": true,
+    "liveReload": true,
+    "search": "cmd+f"
+  },
+  "vendored": ["markdown-it", "highlight.js", "mermaid", "morphdom"]
+}

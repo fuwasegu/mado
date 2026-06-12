@@ -1,0 +1,10 @@
+graph LR
+    subgraph Native[Swift ネイティブ]
+        FS[FSEvents] --> ST[AppState]
+        ST --> WV[WKWebView]
+    end
+    subgraph Web[WebView 内 JS]
+        WV --> MD[markdown-it]
+        MD --> MO[morphdom 差分適用]
+        MO --> MM[mermaid + SVG cache]
+    end
