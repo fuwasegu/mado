@@ -1,8 +1,11 @@
 #!/bin/bash
 # リリースビルドして Mado.app を組み立てる
 # UNIVERSAL=1 で arm64 + x86_64 の universal binary を作る(CI 用)
+# VERSION=x.y.z で Info.plist のバージョンを指定(CI ではタグから注入。未指定は 0.0.0-dev)
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+VERSION="${VERSION:-0.0.0-dev}"
 
 if [ "${UNIVERSAL:-0}" = "1" ]; then
     swift build -c release --arch arm64 --arch x86_64
@@ -36,7 +39,7 @@ if [ -f "$ICON_SRC" ]; then
     rm -rf "$(dirname "$ICONSET")"
 fi
 
-cat > "$APP/Contents/Info.plist" <<'PLIST'
+cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -47,8 +50,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleExecutable</key><string>Mado</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>0.2.0</string>
-    <key>CFBundleVersion</key><string>1</string>
+    <key>CFBundleShortVersionString</key><string>$VERSION</string>
+    <key>CFBundleVersion</key><string>$VERSION</string>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>NSPrincipalClass</key><string>NSApplication</string>
     <key>NSHighResolutionCapable</key><true/>

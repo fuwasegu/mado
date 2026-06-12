@@ -18,16 +18,8 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
-      - name: Verify version matches Info.plist
-        run: |
-          PLIST_VERSION=$(grep -A1 CFBundleShortVersionString scripts/build-app.sh | grep -o '[0-9]*\.[0-9]*\.[0-9]*' | head -1)
-          if [ "$PLIST_VERSION" != "${{ steps.version.outputs.VERSION }}" ]; then
-            echo "::error::Tag version ${{ steps.version.outputs.VERSION }} != Info.plist version $PLIST_VERSION (scripts/build-app.sh を更新してください)"
-            exit 1
-          fi
-
       - name: Build Release (universal)
-        run: UNIVERSAL=1 ./scripts/build-app.sh
+        run: UNIVERSAL=1 VERSION="${{ steps.version.outputs.VERSION }}" ./scripts/build-app.sh
 
       - name: Verify rendering pipeline
         run: |
