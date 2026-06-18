@@ -12,8 +12,29 @@ const bridge = (type, payload = {}) =>
 const isDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 // ---------- mermaid ----------
-const mermaidCache = new Map(); // hash -> svg string
+// SVG キャッシュ。テーマ変更時以外クリアされないため、長時間使用での無制限な
+// メモリ肥大(→メモリ圧→スクロール劣化)を防ぐべく LRU で上限を設ける。
+const MERMAID_CACHE_LIMIT = 100;
+const mermaidCache = new Map(); // hash -> svg string(挿入順 = LRU の古い順)
 let mermaidSeq = 0;
+
+function mermaidCacheGet(hash) {
+  const svg = mermaidCache.get(hash);
+  if (svg !== undefined) {
+    // 参照したものを末尾へ移動し、LRU 順を保つ
+    mermaidCache.delete(hash);
+    mermaidCache.set(hash, svg);
+  }
+  return svg;
+}
+
+function mermaidCacheSet(hash, svg) {
+  mermaidCache.delete(hash);
+  mermaidCache.set(hash, svg);
+  while (mermaidCache.size > MERMAID_CACHE_LIMIT) {
+    mermaidCache.delete(mermaidCache.keys().next().value); // 最も古いものを捨てる
+  }
+}
 
 function initMermaid() {
   mermaid.initialize({
@@ -477,7 +498,7 @@ window.__render = function (payload) {
     assignHeadingIds(next);
     // キャッシュ済みの mermaid SVG は morph 前に流し込む(描画の空白を出さない)
     for (const el of next.querySelectorAll(".mermaid[data-hash]")) {
-      const cached = mermaidCache.get(el.dataset.hash);
+      const cached = mermaidCacheGet(el.dataset.hash);
       if (cached) {
         el.innerHTML = cached;
         el.setAttribute("data-rendered", el.dataset.hash);
@@ -510,7 +531,7 @@ async function renderMermaidBlocks() {
     const h = el.dataset.hash;
     if (el.getAttribute("data-rendered") === h) continue;
     const src = decodeURIComponent(el.dataset.src || "");
-    const cached = mermaidCache.get(h);
+    const cached = mermaidCacheGet(h);
     if (cached) {
       el.innerHTML = cached;
       el.setAttribute("data-rendered", h);
@@ -518,7 +539,7 @@ async function renderMermaidBlocks() {
     }
     try {
       const { svg } = await mermaid.render(`mmsvg-${h}-${mermaidSeq++}`, src);
-      mermaidCache.set(h, svg);
+      mermaidCacheSet(h, svg);
       // 描画中にファイルが更新された場合に備えて要素の生存を確認
       if (el.isConnected && el.dataset.hash === h) {
         el.innerHTML = svg;

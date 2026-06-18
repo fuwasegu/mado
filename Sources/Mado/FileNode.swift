@@ -44,6 +44,15 @@ struct FileNode: Identifiable, Hashable {
         ".cache", ".next", ".nuxt", ".Trash",
     ]
 
+    /// パスが無視ディレクトリ(node_modules / .git 等)配下にあるか。
+    /// FSEvents の再走査要否判定に使い、無関係なディレクトリのイベントを早期に捨てる。
+    static func isInIgnoredDirectory(path: String) -> Bool {
+        for component in (path as NSString).pathComponents where ignoredDirectories.contains(component) {
+            return true
+        }
+        return false
+    }
+
     /// ルート以下を走査し、表示可能ファイルを1つ以上含むサブツリーだけを返す。
     static func scan(root: URL) -> FileNode {
         FileNode(
