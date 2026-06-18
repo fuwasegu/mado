@@ -72,7 +72,10 @@ final class AppState: ObservableObject {
         // イベントを報告するため、比較が一致するよう最初から解決しておく
         let url = url.resolvingSymlinksInPath()
         rootURL = url
-        rescanTree()
+        // 初回スキャンはフォルダを開いた瞬間の一度きりなので同期実行(既定選択に必要)。
+        // 以降の監視中の再走査はバックグラウンドに逃がす(rescanTree 参照)。
+        let tree = FileNode.scan(root: url)
+        rootNode = tree
         startWatching(url)
 
         // 既定の選択: 前回の選択がツリー内に残っていれば維持、なければ README → 最初の .md
@@ -80,7 +83,7 @@ final class AppState: ObservableObject {
            FileManager.default.fileExists(atPath: selected.path) {
             loadSelectedFile()
         } else {
-            selectedFile = defaultFile(in: rootNode)
+            selectedFile = defaultFile(in: tree)
         }
     }
 
@@ -108,21 +111,37 @@ final class AppState: ObservableObject {
 
     private func startWatching(_ url: URL) {
         watcher?.stop()
-        watcher = FSEventsWatcher(path: url.path) { [weak self] paths in
+        watcher = FSEventsWatcher(path: url.path) { [weak self] events in
             Task { @MainActor in
-                self?.handleFileSystemEvents(paths)
+                self?.handleFileSystemEvents(events)
             }
         }
     }
 
-    private func handleFileSystemEvents(_ paths: [String]) {
+    /// サイドバーのツリー構造を変えうるフラグ(作成・削除・リネーム)。
+    /// 内容変更(Modified)は表示名に影響しないため再走査の対象外。
+    private static let structuralFlags = FSEventStreamEventFlags(
+        kFSEventStreamEventFlagItemCreated
+            | kFSEventStreamEventFlagItemRemoved
+            | kFSEventStreamEventFlagItemRenamed
+    )
+
+    private func handleFileSystemEvents(_ events: [FSEvent]) {
         // 表示中ファイルに触れたイベントは即リロード(atomic rename は親ディレクトリのイベントになる場合もある)
         if let current = selectedFile {
             let dir = current.deletingLastPathComponent().path
-            if paths.contains(where: { $0 == current.path || $0 == dir }) {
+            if events.contains(where: { $0.path == current.path || $0.path == dir }) {
                 reloadCurrentFile()
             }
         }
+        // FS イベントの大半はファイル内容の変更(Claude Code の書き込み等)で、ツリーは変わらない。
+        // 構造を変えうる作成/削除/リネームが、無視ディレクトリの外で起きた時だけ再走査する。
+        // これにより、書き込みの嵐の最中でもフルツリー走査が走らずスクロールが詰まらない。
+        let treeMayHaveChanged = events.contains {
+            $0.flags & Self.structuralFlags != 0 && !FileNode.isInIgnoredDirectory(path: $0.path)
+        }
+        guard treeMayHaveChanged else { return }
+
         // ツリーは連続イベントをデバウンスして再走査
         rescanWorkItem?.cancel()
         let item = DispatchWorkItem { [weak self] in
@@ -139,11 +158,20 @@ final class AppState: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: item)
     }
 
+    /// 監視中の再走査はバックグラウンドで行い、差分があった時だけメインに反映する。
+    /// (大きなツリーの contentsOfDirectory 再帰と深い構造比較を UI スレッドから外し、
+    ///  スクロールのカクつきを防ぐ)
     private func rescanTree() {
         guard let rootURL else { return }
-        let newTree = FileNode.scan(root: rootURL)
-        if newTree != rootNode {
-            rootNode = newTree
+        let previous = rootNode
+        Task.detached(priority: .utility) {
+            let newTree = FileNode.scan(root: rootURL)
+            guard newTree != previous else { return }
+            await MainActor.run { [weak self] in
+                // 走査中にフォルダが切り替わっていたら、古いツリーで上書きしない
+                guard let self, self.rootURL == rootURL else { return }
+                self.rootNode = newTree
+            }
         }
     }
 

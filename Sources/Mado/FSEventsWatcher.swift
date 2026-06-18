@@ -1,13 +1,19 @@
 import Foundation
 import CoreServices
 
+/// FSEvents が報告する 1 イベント(パスと種別フラグ)。
+struct FSEvent {
+    let path: String
+    let flags: FSEventStreamEventFlags
+}
+
 /// FSEvents によるディレクトリ再帰監視。
 /// Claude Code 等がターミナルから書き込んだ変更(atomic save の rename 含む)を拾う。
 final class FSEventsWatcher {
     private var streamRef: FSEventStreamRef?
-    private let onEvents: ([String]) -> Void
+    private let onEvents: ([FSEvent]) -> Void
 
-    init?(path: String, onEvents: @escaping ([String]) -> Void) {
+    init?(path: String, onEvents: @escaping ([FSEvent]) -> Void) {
         self.onEvents = onEvents
 
         var context = FSEventStreamContext(
@@ -18,18 +24,17 @@ final class FSEventsWatcher {
             copyDescription: nil
         )
 
-        let callback: FSEventStreamCallback = { _, info, numEvents, eventPaths, _, _ in
+        let callback: FSEventStreamCallback = { _, info, numEvents, eventPaths, eventFlags, _ in
             guard let info else { return }
             let watcher = Unmanaged<FSEventsWatcher>.fromOpaque(info).takeUnretainedValue()
-            let cfPaths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue()
-            var paths: [String] = []
-            paths.reserveCapacity(numEvents)
+            let cfPaths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue() as NSArray
+            var events: [FSEvent] = []
+            events.reserveCapacity(numEvents)
             for i in 0..<numEvents {
-                if let path = (cfPaths as NSArray)[i] as? String {
-                    paths.append(path)
-                }
+                guard let path = cfPaths[i] as? String else { continue }
+                events.append(FSEvent(path: path, flags: eventFlags[i]))
             }
-            watcher.onEvents(paths)
+            watcher.onEvents(events)
         }
 
         let flags = UInt32(
