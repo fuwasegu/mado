@@ -18,12 +18,20 @@ fi
 APP="build/Mado.app"
 BIN="$BUILD_DIR/Mado"
 BUNDLE="$BUILD_DIR/Mado_Mado.bundle"
+# SearchCore の e5 CoreML モデル/トークナイザを含むリソースバンドル
+CORE_BUNDLE="$BUILD_DIR/Mado_SearchCore.bundle"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 cp "$BIN" "$APP/Contents/MacOS/Mado"
 cp -R "$BUNDLE" "$APP/Contents/Resources/"
+# SearchCore のリソース(意味検索モデル)も同梱。無いと e5 が読めず NLEmbedding に退化する。
+if [ -d "$CORE_BUNDLE" ]; then
+    cp -R "$CORE_BUNDLE" "$APP/Contents/Resources/"
+else
+    echo "WARN: $CORE_BUNDLE が見つからない(意味検索が NLEmbedding にフォールバックします)"
+fi
 
 # アプリアイコン: assets/icon-1024.png から .icns を生成
 ICON_SRC="assets/icon-1024.png"

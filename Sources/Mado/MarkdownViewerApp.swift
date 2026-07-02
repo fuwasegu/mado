@@ -1,6 +1,28 @@
 import SwiftUI
 
+/// エントリポイント。`--index <path>` / `--search <path> -- <query>` のヘッドレス CLI を
+/// SwiftUI 起動前に捌き、それ以外は通常の GUI アプリを起動する。
 @main
+struct Entry {
+    static func main() {
+        let args = CommandLine.arguments
+        if let i = args.firstIndex(of: "--index"), i + 1 < args.count {
+            HeadlessCLI.index(path: args[i + 1]); return
+        }
+        if let i = args.firstIndex(of: "--search"), i + 1 < args.count {
+            let query = args.firstIndex(of: "--").map { args[($0 + 1)...].joined(separator: " ") } ?? ""
+            HeadlessCLI.search(path: args[i + 1], query: query); return
+        }
+        if let i = args.firstIndex(of: "--eval"), i + 2 < args.count {
+            HeadlessCLI.eval(corpus: args[i + 1], queriesPath: args[i + 2]); return
+        }
+        if let i = args.firstIndex(of: "--eval-structured"), i + 2 < args.count {
+            HeadlessCLI.evalStructured(corpus: args[i + 1], queriesPath: args[i + 2]); return
+        }
+        MarkdownViewerApp.main()
+    }
+}
+
 struct MarkdownViewerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -48,12 +70,18 @@ struct MadoCommands: Commands {
             }
             .keyboardShortcut("f", modifiers: .command)
             .disabled(state == nil)
+
+            Button("Search in Files…") { state?.toggleSearch() }
+                .keyboardShortcut("f", modifiers: [.command, .shift])
+                .disabled(state?.rootURL == nil)
         }
     }
 }
 
 extension Notification.Name {
     static let mdvOpenFind = Notification.Name("mdv.openFind")
+    /// 検索結果 → 表示面への遷移(userInfo: path, anchor)
+    static let mdvNavigate = Notification.Name("mdv.navigate")
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {

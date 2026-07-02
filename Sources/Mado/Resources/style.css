@@ -316,6 +316,32 @@ details.front-matter pre {
   ::highlight(mdv-search-current) { background-color: rgba(255, 159, 10, 0.95); color: #000; }
 }
 
+/* 検索結果から飛んだ先の見出しを 5 秒ハイライト → フェードアウト。
+   box-shadow ベースなのでレイアウトを動かさない(スクロール位置がずれない)。 */
+.mdv-flash {
+  border-radius: 5px;
+  animation: mdvFlash 5s ease-out forwards;
+}
+@keyframes mdvFlash {
+  0%, 65% {
+    background-color: rgba(255, 214, 10, 0.30);
+    box-shadow: 0 0 0 6px rgba(255, 214, 10, 0.20);
+  }
+  100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
+}
+@media (prefers-color-scheme: dark) {
+  @keyframes mdvFlash {
+    0%, 65% {
+      background-color: rgba(255, 214, 10, 0.22);
+      box-shadow: 0 0 0 6px rgba(255, 214, 10, 0.14);
+    }
+    100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mdv-flash { animation: none; background-color: rgba(255, 214, 10, 0.22); }
+}
+
 /* ---------- Data table (csv/tsv) ---------- */
 body.data-file #content { max-width: none; padding: 24px 28px 80px; }
 
