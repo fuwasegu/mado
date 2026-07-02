@@ -52,7 +52,8 @@ enum HeadlessCLI {
         let t0 = Date()
         while ((try? sem.embedNextBatch(limit: 64)) ?? 0) > 0 {}
         let embedMs = Int(Date().timeIntervalSince(t0) * 1000)
-        let svc = QueryService(store: store, semantic: sem)
+        let svc = QueryService(store: store, semantic: sem,
+                               userAliases: Aliases.loadUserGroups(vaultRoot: root))
 
         print("corpus=\(root.lastPathComponent) files=\(stats?.added ?? 0) chunks=\((try? store.chunkCount()) ?? 0) vectors=\((try? store.vectorCount()) ?? 0)")
         print("embedder=\(embedder.identifier) embedTime=\(embedMs)ms queries=\(queries.count)\n")

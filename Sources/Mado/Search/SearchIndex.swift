@@ -8,6 +8,8 @@ import SearchCore
 actor SearchIndex {
     private var store: IndexStore?
     private var root: URL?
+    /// vault 固有のユーザーエイリアス(.mado/aliases.json)。open 時に読む。
+    private var userAliases: [[String]] = []
     /// 意味検索の埋め込み。高品質な e5(CoreML)を優先し、使えなければ zero-dep の NLEmbedding。
     private lazy var embedder: Embedder = Self.makeEmbedder()
     private var semantic: SemanticStore?
@@ -25,6 +27,7 @@ actor SearchIndex {
     /// フォルダを開いた時に呼ぶ。既存 index を開き(無ければ作成)、背景で差分照合する。
     func openAndReconcile(root: URL) {
         self.root = root
+        userAliases = Aliases.loadUserGroups(vaultRoot: root)
         do {
             store = try IndexStore(path: Self.indexURL(for: root).path)
         } catch {
@@ -99,9 +102,11 @@ actor SearchIndex {
     }
 
     /// ハイブリッド検索(構造化 + 全文 + 意味)。DSL: `tag:api status:draft "句" 自由語`。
-    func search(_ query: String, limit: Int = 50) -> [SearchHit] {
+    /// excludedFacets = 解釈チップで個別解除された facet id。
+    func search(_ query: String, limit: Int = 50, excludedFacets: Set<String> = []) -> [SearchHit] {
         guard let store else { return [] }
-        return QueryService(store: store, semantic: semantic).search(query, limit: limit)
+        return QueryService(store: store, semantic: semantic, userAliases: userAliases)
+            .search(query, limit: limit, excludedFacets: excludedFacets)
     }
 
     /// CLI 用: 未ベクトル化チャンクを最後まで同期的に埋め込む(背景 loop と違い待てる)。

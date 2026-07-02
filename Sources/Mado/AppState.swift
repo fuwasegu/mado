@@ -34,6 +34,8 @@ final class AppState: ObservableObject {
     @Published private(set) var embedDone = 0
     @Published private(set) var embedTotal = 0
     var isEmbeddingIndex: Bool { embedTotal > 0 && embedDone < embedTotal }
+    /// 解釈チップで個別解除された facet id(プランナ誤解釈の UI 回収)。
+    @Published private(set) var disabledFacets: Set<String> = []
     /// 現在ハイライト中の結果(由来フッタ/選択表示用)。ナビゲーションは openResult で別途行う。
     @Published var highlightedHitID: SearchHit.ID?
     private var searchTask: Task<Void, Never>?
@@ -48,14 +50,15 @@ final class AppState: ObservableObject {
         searchTask?.cancel()
         guard !q.isEmpty else {
             searchResults = []; searchFacets = []; searchTerms = []
-            highlightedHitID = nil; isSearching = false; return
+            disabledFacets = []; highlightedHitID = nil; isSearching = false; return
         }
         isSearching = true
         let interp = searchIndex.interpret(q)   // 軽量・nonisolated
         searchFacets = interp.facets
         searchTerms = interp.terms
+        let excluded = disabledFacets
         searchTask = Task { [searchIndex] in
-            let hits = await searchIndex.search(q, limit: 80)
+            let hits = await searchIndex.search(q, limit: 80, excludedFacets: excluded)
             if Task.isCancelled { return }
             await MainActor.run {
                 self.searchResults = hits
@@ -63,6 +66,12 @@ final class AppState: ObservableObject {
                 self.isSearching = false
             }
         }
+    }
+
+    /// 解釈チップのタップ: facet を個別に無効化/再有効化して再検索。
+    func toggleFacet(_ id: String) {
+        if disabledFacets.contains(id) { disabledFacets.remove(id) } else { disabledFacets.insert(id) }
+        runSearch()
     }
 
     /// 検索結果を開く: ファイルを表示面に渡し、該当見出しへスクロール(handoff)。

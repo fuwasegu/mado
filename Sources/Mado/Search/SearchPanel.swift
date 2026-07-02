@@ -140,6 +140,7 @@ struct SearchPanel: View {
 // MARK: - 解釈バー
 
 private struct InterpretationBar: View {
+    @EnvironmentObject var state: AppState
     let facets: [QueryFacet]
     var body: some View {
         HStack(spacing: 8) {
@@ -148,7 +149,17 @@ private struct InterpretationBar: View {
             Text("›").foregroundStyle(SC.faint).font(.system(size: 11))
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 7) {
-                    ForEach(facets) { FacetChip(facet: $0) }
+                    ForEach(facets) { facet in
+                        // 全文+意味はクエリ本体なので解除不可。フィルタ系はタップで個別に外せる。
+                        if facet.kind == .lexsem {
+                            FacetChip(facet: facet, disabled: false)
+                        } else {
+                            FacetChip(facet: facet, disabled: state.disabledFacets.contains(facet.id))
+                                .contentShape(Capsule())
+                                .onTapGesture { state.toggleFacet(facet.id) }
+                                .help("タップでこの解釈を無効化/再有効化")
+                        }
+                    }
                 }
             }
         }
@@ -157,15 +168,19 @@ private struct InterpretationBar: View {
 
 private struct FacetChip: View {
     let facet: QueryFacet
+    let disabled: Bool
     var body: some View {
         HStack(spacing: 7) {
             SignalDot(kind: facet.kind)
             Text(facet.kindLabel).font(.system(size: 8.5, weight: .semibold)).tracking(1.2)
                 .foregroundStyle(SC.faint).textCase(.uppercase)
-            Text(facet.value).font(.system(size: 12.5)).foregroundStyle(SC.sec)
+            Text(facet.value).font(.system(size: 12.5))
+                .foregroundStyle(disabled ? SC.faint : SC.sec)
+                .strikethrough(disabled, color: SC.faint)
         }
         .padding(.horizontal, 9).padding(.vertical, 3)
         .overlay(Capsule().strokeBorder(SC.rule.opacity(0.6), lineWidth: 0.5))
+        .opacity(disabled ? 0.55 : 1)
     }
 }
 
