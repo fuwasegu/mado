@@ -113,13 +113,22 @@ public final class SemanticStore {
             for i in 0..<min(sums[fid]!.count, vec.count) { sums[fid]![i] += vec[i] }
         }
         fileCentroids = sums.mapValues { VectorMath.normalized($0) }
+        fileSegCount = [:]
+        for (_, fid, _, _) in cache { fileSegCount[fid, default: 0] += 1 }
         dirty = false
     }
 
-    /// 2つの意味ビューの重み付き和: segment-max cosine + β × 文書セントロイド cosine。
-    /// max 結合(C13)は誤文書の単一セグメント spike に弱かったが、和は「両ビューの合意」を報いる。
+    private var fileSegCount: [Int64: Int] = [:]
+
+    /// 三層の意味スコア: segment-max + supportBeta·top2セグメント平均 + centBeta·文書セントロイド。
+    /// - segment-max: 最も刺さる一文(局所)
+    /// - top-2 平均(鋭い合意): 1スパイクだけの雑多な長文記事(ハブ文書)は2番手が弱く沈む。
+    ///   R15 実験: これ単独では held-out v1 が退行(0.88→0.85)。
+    /// - centroid(広い合意): 文書全体の主題性。これ単独が旧実装(dev 0.75)。
+    /// 両ビューのブレンド(0.3/0.2)で dev 0.75→0.78 かつ v1 0.88 維持を両立(R15)。
     /// hybrid の概念クエリ専用(ゲートは呼び出し側)。seg = 最類似セグメント(スニペット/着地用)。
-    public func searchSum(_ query: String, beta: Float, limit: Int) -> [(chunkId: Int64, score: Float, seg: Int32)] {
+    public func searchSum(_ query: String, supportBeta: Float, centBeta: Float,
+                          limit: Int) -> [(chunkId: Int64, score: Float, seg: Int32)] {
         guard embedder.isAvailable, !query.isEmpty else { return [] }
         guard let qv = embedder.embed(query, kind: .query) else { return [] }
         ensureLoaded()
@@ -132,9 +141,21 @@ public final class SemanticStore {
         }
         var cent: [Int64: Float] = [:]     // file → centroid cosine
         for (fid, c) in fileCentroids { cent[fid] = VectorMath.dot(qv, c) }
+        // top-2 セグメント平均(鋭い合意)。文書長ペナルティ(score−γ·ln n)は dev で
+        // 単調悪化した(長さは泥棒と正解を区別しない)ため不採用 — 報いるべきは合意。
+        var docSupport: [Int64: Float] = [:]
+        var perFile: [Int64: [Float]] = [:]
+        for (_, fid, _, vec) in cache { perFile[fid, default: []].append(VectorMath.dot(qv, vec)) }
+        for (fid, scores) in perFile {
+            let top = scores.sorted(by: >).prefix(2)
+            docSupport[fid] = top.reduce(0, +) / Float(top.count)
+        }
         var combined: [Int64: (score: Float, seg: Int32)] = [:]
         for (cid, b) in best {
-            combined[cid] = (b.score + beta * (chunkFile[cid].flatMap { cent[$0] } ?? 0), b.seg)
+            let fid = chunkFile[cid]
+            let sup = fid.flatMap { docSupport[$0] } ?? 0
+            let cen = fid.flatMap { cent[$0] } ?? 0
+            combined[cid] = (b.score + supportBeta * sup + centBeta * cen, b.seg)
         }
         return combined.sorted { a, b in
             if a.value.score != b.value.score { return a.value.score > b.value.score }

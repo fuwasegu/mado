@@ -73,7 +73,7 @@ public final class QueryService {
             // hybrid の概念クエリは segment-max + 0.5·文書セントロイドの和(C16: 両ビューの合意を報いる。
             // max 結合は誤文書の単一セグメント spike に弱く C13 で失敗、和は dev R@1/MRR を改善)。
             let top: [(chunkId: Int64, score: Float, seg: Int32)] = (mode == .hybrid && conceptQuery)
-                ? semantic.searchSum(parsed.semanticIntent, beta: 0.5, limit: candidatePool)
+                ? semantic.searchSum(parsed.semanticIntent, supportBeta: 0.3, centBeta: 0.2, limit: candidatePool)
                 : semantic.search(parsed.semanticIntent, limit: candidatePool)
             let ids = top.map { $0.chunkId }
             let rows = (try? store.chunkRows(ids: ids)) ?? [:]
