@@ -131,6 +131,9 @@ swift scripts/anchor-test.swift
 # ヘッドレスでインデックス構築 / 検索(GUI 不要)
 .build/debug/Mado --index  ~/path/to/docs
 .build/debug/Mado --search ~/path/to/docs -- "tag:api 認証フロー"
+
+# vault の語彙から同義語辞書を自動採掘(→ .mado/aliases.json に置くと検索に反映)
+.build/debug/Mado --mine-aliases ~/path/to/docs /tmp/aliases.json 0.65
 ```
 
 ## 操作

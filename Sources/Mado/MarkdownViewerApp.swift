@@ -19,6 +19,10 @@ struct Entry {
         if let i = args.firstIndex(of: "--eval-structured"), i + 2 < args.count {
             HeadlessCLI.evalStructured(corpus: args[i + 1], queriesPath: args[i + 2]); return
         }
+        if let i = args.firstIndex(of: "--mine-aliases"), i + 2 < args.count {
+            let tau = (i + 3 < args.count) ? (Float(args[i + 3]) ?? 0.9) : 0.9
+            HeadlessCLI.mineAliases(corpus: args[i + 1], output: args[i + 2], threshold: tau); return
+        }
         MarkdownViewerApp.main()
     }
 }

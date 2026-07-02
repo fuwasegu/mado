@@ -117,6 +117,89 @@ enum HeadlessCLI {
         exit(0)
     }
 
+    // MARK: 自動エイリアス採掘(--mine-aliases <corpus> <out.json> [threshold])
+    // vault 語彙(ラテン語・カタカナ語)を e5 で埋め込み、近傍語を自動グループ化する実験。
+    // 出力は .mado/aliases.json と同形式で、userAliases 経路にそのまま流せる。
+
+    static func mineAliases(corpus: String, output: String, threshold: Float) {
+        let root = URL(fileURLWithPath: (corpus as NSString).expandingTildeInPath).resolvingSymlinksInPath()
+        let embedder = CoreMLEmbedder()
+        guard embedder.isAvailable else {
+            FileHandle.standardError.write(Data("e5 unavailable\n".utf8)); exit(1)
+        }
+
+        // 1) 語彙抽出(DF 付き)。カタカナ連続 3+ / ラテン 3+。
+        var df: [String: Int] = [:]
+        let kata = try! NSRegularExpression(pattern: "[\\p{Script=Katakana}ー]{3,}")
+        let latin = try! NSRegularExpression(pattern: "[A-Za-z][A-Za-z0-9.+-]{2,}")
+        var fileCount = 0
+        for url in Indexer.enumerateIndexable(root: root) {
+            guard let text = try? String(contentsOf: url, encoding: .utf8) else { continue }
+            fileCount += 1
+            var seen = Set<String>()
+            let ns = text as NSString
+            let range = NSRange(location: 0, length: ns.length)
+            for rx in [kata, latin] {
+                for m in rx.matches(in: text, range: range) {
+                    seen.insert(ns.substring(with: m.range).lowercased())
+                }
+            }
+            for t in seen { df[t, default: 0] += 1 }
+        }
+        // 選別: 2 ≤ DF ≤ 40% of docs(識別語だが孤語ではない)、頻度順で上位 400
+        let maxDF = max(2, Int(Double(fileCount) * 0.4))
+        let terms = df.filter { $0.value >= 2 && $0.value <= maxDF }
+            .sorted { $0.value != $1.value ? $0.value > $1.value : $0.key < $1.key }
+            .prefix(400).map { $0.key }
+        print("vocab: \(df.count) terms → selected \(terms.count) (files=\(fileCount))")
+
+        // 2) 埋め込み(文テンプレートで e5 に自然な入力を与える)
+        var vecs: [[Float]] = []
+        for t in terms { vecs.append(embedder.embed("「\(t)」について", kind: .document) ?? []) }
+
+        // 3) 異方性補正(全語平均を引いて再正規化)。e5 の語レベル cosine は素では全て 0.9 前後に
+        //    张り付き識別不能。中心化で類似度が広がり、同義ペアだけが高く残る。
+        let dim = vecs.first(where: { !$0.isEmpty })?.count ?? 0
+        var mean = [Float](repeating: 0, count: dim)
+        var cnt = 0
+        for v in vecs where !v.isEmpty { for k in 0..<dim { mean[k] += v[k] }; cnt += 1 }
+        for k in 0..<dim { mean[k] /= Float(max(1, cnt)) }
+        let centered: [[Float]] = vecs.map { v in
+            guard !v.isEmpty else { return v }
+            var c = v
+            for k in 0..<dim { c[k] -= mean[k] }
+            return VectorMath.normalized(c)
+        }
+
+        // 4) 相互最近傍ペアのみ採用(推移閉包の連鎖崩壊を構造的に防ぐ)。
+        var best: [(idx: Int, sim: Float)] = Array(repeating: (-1, -2), count: terms.count)
+        for i in 0..<terms.count where !centered[i].isEmpty {
+            for j in 0..<terms.count where j != i && !centered[j].isEmpty {
+                if terms[i].contains(terms[j]) || terms[j].contains(terms[i]) { continue }
+                let s = VectorMath.dot(centered[i], centered[j])
+                if s > best[i].sim { best[i] = (j, s) }
+            }
+        }
+        var aliasGroups: [[String]] = []
+        var scored: [(Float, String, String)] = []
+        for i in 0..<terms.count {
+            let (j, s) = best[i]
+            guard j > i, best[j].idx == i, s >= threshold else { continue }   // 相互 top-1 のみ
+            aliasGroups.append([terms[i], terms[j]])
+            scored.append((s, terms[i], terms[j]))
+        }
+        aliasGroups.sort { $0[0] < $1[0] }
+
+        print("mutual-NN pairs ≥ \(threshold): \(aliasGroups.count)")
+        for (s, a, b) in scored.sorted(by: { $0.0 > $1.0 }).prefix(30) {
+            print(String(format: "  %.3f  %@ ⇄ %@", s, a, b))
+        }
+        let data = try! JSONEncoder().encode(aliasGroups)
+        try! data.write(to: URL(fileURLWithPath: output))
+        print("wrote \(output)")
+        exit(0)
+    }
+
     // MARK: 構造化フィルタ検証(--eval-structured <corpus> <structured.json>)
 
     private struct StructuredQuery: Decodable { let query: String; let gold_set: [String] }
