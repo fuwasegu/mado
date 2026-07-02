@@ -48,7 +48,8 @@ final class MCPServer {
             }
             if let n = try? semantic.embedPending(), n > 0 { MCPServer.log("embedded \(n) chunks") }
         }
-        query = QueryService(store: store, semantic: semantic)
+        query = QueryService(store: store, semantic: semantic,
+                             userAliases: Aliases.loadUserGroups(vaultRoot: root))
         MCPServer.log("ready\(writable ? "" : " (read-only)"): \(root.path)  files=\((try? store.fileCount()) ?? 0) vectors=\((try? store.vectorCount()) ?? 0)")
     }
 
