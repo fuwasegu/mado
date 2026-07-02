@@ -25,6 +25,11 @@ let package = Package(
             dependencies: ["SearchCore"],
             resources: [.copy("Resources")]
         ),
+        // 同じインデックスを Claude Code から叩く MCP サーバ(JSON-RPC over stdio, Pure Swift)。
+        .executableTarget(
+            name: "MadoSearchMCP",
+            dependencies: ["SearchCore"]
+        ),
         .testTarget(
             name: "SearchCoreTests",
             dependencies: ["SearchCore"]
