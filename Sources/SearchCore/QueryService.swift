@@ -5,18 +5,24 @@ import Foundation
 public final class QueryService {
     private let store: IndexStore
     private let semantic: SemanticStore?
+    /// vault 固有のユーザーエイリアス(.mado/aliases.json)。緩和 OR 展開にのみ使う。
+    private let userAliases: [[String]]
 
-    public init(store: IndexStore, semantic: SemanticStore? = nil) {
+    public init(store: IndexStore, semantic: SemanticStore? = nil, userAliases: [[String]] = []) {
         self.store = store
         self.semantic = semantic
+        self.userAliases = userAliases
     }
 
     /// 評価用に信号を切り替える。既定は hybrid(製品挙動)。
     public enum Mode: Sendable { case hybrid, lexical, semantic }
 
-    public func search(_ raw: String, limit: Int = 50, mode: Mode = .hybrid) -> [SearchHit] {
+    /// excludedFacets: 解釈チップで個別解除された facet id(誤解釈の UI 回収)。
+    public func search(_ raw: String, limit: Int = 50, mode: Mode = .hybrid,
+                       excludedFacets: Set<String> = []) -> [SearchHit] {
         // 自然文プランナで時間軸・タスク状態を抽出し、残りを DSL/語彙/意味に。
-        let parsed = QueryPlanner.plan(raw)
+        var parsed = QueryPlanner.plan(raw)
+        parsed = QueryPlanner.removing(parsed, facets: excludedFacets)
         if parsed.lexicalTerms.isEmpty && parsed.filters.isEmpty { return [] }
 
         let candidatePool = max(limit, 200)
@@ -41,7 +47,7 @@ public final class QueryService {
         var relaxedRows: [IndexStore.LexicalRow] = []
         if mode == .hybrid, conceptQuery {
             var relaxedQuery = parsed.lexicalString
-            let exp = Aliases.expansions(for: relaxedQuery)
+            let exp = Aliases.expansions(for: relaxedQuery, extra: userAliases)
             if !exp.isEmpty { relaxedQuery += " " + exp.joined(separator: " ") }
             if let orExpr = Tokenizer.orMatchExpression(relaxedQuery) {
                 relaxedRows = (try? store.search(matchExpr: orExpr, filters: parsed.filters, limit: candidatePool)) ?? []

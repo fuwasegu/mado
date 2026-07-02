@@ -43,6 +43,29 @@ public extension QueryPlanner {
         return SearchInterpretation(facets: f, terms: p.lexicalTerms)
     }
 
+    /// 解釈チップの個別解除: 指定 facet id に対応するフィルタだけを外した ParsedQuery を返す。
+    /// プランナの誤解釈(タスク句の誤爆等)を、語彙の網羅ではなく UI 操作で回収するための API。
+    static func removing(_ parsed: ParsedQuery, facets ids: Set<String>) -> ParsedQuery {
+        guard !ids.isEmpty else { return parsed }
+        var p = parsed
+        func off(_ label: String, _ value: String) -> Bool { ids.contains("\(label):\(value)") }
+        if let after = p.filters.modifiedAfter,
+           off("時間軸", dateRangeLabel(after, p.filters.modifiedBefore)) {
+            p.filters.modifiedAfter = nil
+            p.filters.modifiedBefore = nil
+        }
+        p.filters.tags.removeAll { off("タグ", $0) }
+        p.filters.status.removeAll { off("状態", $0) }
+        p.filters.pathContains.removeAll { off("パス", $0) }
+        p.filters.exts.removeAll { off("拡張子", $0) }
+        p.filters.langs.removeAll { off("言語", $0) }
+        if let ts = p.filters.taskState, off("タスク", ts == .done ? "完了" : "未完了") {
+            p.filters.taskState = nil
+        }
+        p.filters.frontMatter.removeAll { off($0.key, $0.value) }
+        return p
+    }
+
     private static func dateRangeLabel(_ after: Double, _ before: Double?) -> String {
         let fmt = DateFormatter()
         fmt.calendar = Calendar(identifier: .gregorian); fmt.timeZone = .current

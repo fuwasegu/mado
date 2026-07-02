@@ -35,7 +35,39 @@ final class QueryPlannerTests: XCTestCase {
     func testTodoExtraction() {
         let q = QueryPlanner.plan("未完了のタスクで API 関連", now: now)
         XCTAssertEqual(q.filters.taskState, .todo)
-        XCTAssertFalse(q.lexicalTerms.contains { $0.contains("未完了") })
+        // タスク句は除去しない(検索の手がかりとして残す)。日付句は従来通り除去。
+        XCTAssertTrue(q.lexicalTerms.contains { $0.contains("未完了") })
+    }
+
+    func testCommonWordDoesNotTriggerTaskFilter() {
+        // 「やること」のような日常語ではタスクフィルタを発火させない(誤爆防止)
+        let q = QueryPlanner.plan("やることリストの作り方", now: now)
+        XCTAssertNil(q.filters.taskState)
+    }
+
+    func testFacetRemoval() {
+        var parsed = QueryPlanner.plan("先月の未完了タスク tag:api", now: now)
+        XCTAssertNotNil(parsed.filters.modifiedAfter)
+        XCTAssertEqual(parsed.filters.taskState, .todo)
+        XCTAssertEqual(parsed.filters.tags, ["api"])
+        // タスクチップだけ解除 → 他のフィルタは維持
+        parsed = QueryPlanner.removing(parsed, facets: ["タスク:未完了"])
+        XCTAssertNil(parsed.filters.taskState)
+        XCTAssertNotNil(parsed.filters.modifiedAfter)
+        XCTAssertEqual(parsed.filters.tags, ["api"])
+        // タグチップも解除
+        parsed = QueryPlanner.removing(parsed, facets: ["タグ:api"])
+        XCTAssertTrue(parsed.filters.tags.isEmpty)
+    }
+
+    func testUserAliasExpansion() {
+        // 組み込みに無い vault 固有語もユーザー辞書で展開できる
+        let exp = Aliases.expansions(for: "社内検索基盤の設計", extra: [["社内検索基盤", "SDP"]])
+        XCTAssertTrue(exp.contains("SDP"))
+        // 組み込み辞書も併用される
+        let exp2 = Aliases.expansions(for: "サインインの流れ", extra: [["社内検索基盤", "SDP"]])
+        XCTAssertTrue(exp2.contains("ログイン"))
+        XCTAssertFalse(exp2.contains("SDP"))
     }
 
     func testExplicitDSLStillWorks() {

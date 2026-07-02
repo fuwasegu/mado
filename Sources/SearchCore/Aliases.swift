@@ -53,16 +53,27 @@ public enum Aliases {
     ]
 
     /// クエリ表層に substring 一致した語群の「残りの語」を展開語として返す。
-    public static func expansions(for query: String) -> [String] {
+    /// extra には vault 固有のユーザー辞書(社内用語・プロジェクト略語等)を渡せる。
+    public static func expansions(for query: String, extra: [[String]] = []) -> [String] {
         let lower = query.lowercased()
         var out: [String] = []
         var seen = Set<String>()
-        for g in groups where g.contains(where: { lower.contains($0.lowercased()) }) {
+        for g in groups + extra where g.contains(where: { lower.contains($0.lowercased()) }) {
             for w in g where !lower.contains(w.lowercased()) && !seen.contains(w) {
                 seen.insert(w)
                 out.append(w)
             }
         }
         return out
+    }
+
+    /// vault ルートの `.mado/aliases.json` からユーザー辞書を読む。
+    /// 形式: [["社内検索基盤", "SDP"], ["顧客管理", "CRM"]](語群の配列。組み込み辞書と同じ意味論)
+    /// 無い・壊れている場合は空(組み込み辞書のみで動く)。
+    public static func loadUserGroups(vaultRoot: URL) -> [[String]] {
+        let url = vaultRoot.appendingPathComponent(".mado/aliases.json")
+        guard let data = try? Data(contentsOf: url),
+              let groups = try? JSONDecoder().decode([[String]].self, from: data) else { return [] }
+        return groups.filter { $0.count >= 2 }
     }
 }

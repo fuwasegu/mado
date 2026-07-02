@@ -28,16 +28,15 @@ public enum QueryPlanner {
             text = text.replacingCharacters(in: m.range, with: " ")
         }
 
-        // 2) タスク状態の語(普遍的に構造化できる)
+        // 2) タスク状態の語。
+        // 日付と違い、語をクエリから除去しない: タスク句は本文にも現れうる語なので、
+        // 除去すると検索の手がかりまで失う(フィルタは付けるが語は lexical/semantic に残す)。
+        // 誤解釈は検索パネルの解釈チップをタップして個別に外せる。
         for (phrases, state) in taskPhrases {
-            for p in phrases {
-                if let r = text.range(of: p) {
-                    taskState = state
-                    text = text.replacingCharacters(in: r, with: " ")
-                    break
-                }
+            if phrases.contains(where: { text.range(of: $0) != nil }) {
+                taskState = state
+                break
             }
-            if taskState != nil { break }
         }
 
         // 3) 残りを既存 DSL パーサへ(明示 tag:/status: 等もここで処理)
@@ -135,8 +134,9 @@ public enum QueryPlanner {
         return (r, after)
     }
 
+    // 明示的な語だけに絞る(「やること」のような日常語は誤爆コストが高いため外した)。
     private static let taskPhrases: [(phrases: [String], state: QueryFilters.TaskState)] = [
-        (["未完了", "未対応", "やり残し", "やること", "todo", "to-do"], .todo),
+        (["未完了", "未対応", "やり残し", "todo", "to-do"], .todo),
         (["完了済", "対応済", "済みのタスク", "done のタスク"], .done),
     ]
 }
