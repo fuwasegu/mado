@@ -145,13 +145,16 @@ final class AppState: ObservableObject {
 
         // 検索インデックスは起動/切替をブロックしない。背景で開いて差分照合する。
         // (起動 0.4s を守るため UI スレッド・初回 FileNode.scan とは別経路)
-        Task.detached(priority: .utility) { [weak self, searchIndex] in
-            await searchIndex.setProgressHandler { done, total in
-                Task { @MainActor in
-                    self?.embedDone = done
-                    self?.embedTotal = total
-                }
+        // 進捗ハンドラは自前で [weak self] を捕捉する(外側クロージャの weak var を
+        // @Sendable 内から参照すると Swift 6 モードでエラーになるため)。
+        let onProgress: @Sendable (Int, Int) -> Void = { [weak self] done, total in
+            Task { @MainActor in
+                self?.embedDone = done
+                self?.embedTotal = total
             }
+        }
+        Task.detached(priority: .utility) { [searchIndex] in
+            await searchIndex.setProgressHandler(onProgress)
             await searchIndex.openAndReconcile(root: url)
         }
 
