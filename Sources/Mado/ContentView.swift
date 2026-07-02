@@ -10,12 +10,24 @@ struct ContentView: View {
             SidebarView()
                 .navigationSplitViewColumnWidth(min: 180, ideal: 240, max: 420)
         } detail: {
-            if state.selectedFile != nil {
-                MarkdownWebView()
-                    .ignoresSafeArea(edges: .bottom)
-            } else {
-                EmptyDetailView()
+            HStack(spacing: 0) {
+                if state.isSearchPresented {
+                    SearchPanel()
+                        .frame(width: 430)
+                        .transition(.move(edge: .leading))
+                    Divider()
+                }
+                // リーダーは既存の WKWebView(実際のレンダリング)を再利用。検索パネルの開閉で作り直さない。
+                Group {
+                    if state.selectedFile != nil {
+                        MarkdownWebView()
+                            .ignoresSafeArea(edges: .bottom)
+                    } else {
+                        EmptyDetailView()
+                    }
+                }
             }
+            .animation(.easeOut(duration: 0.16), value: state.isSearchPresented)
         }
         .environmentObject(state)
         .focusedSceneObject(state) // メニューコマンド(⌘O/⌘R/⌘F)の作用先になる
@@ -24,6 +36,15 @@ struct ContentView: View {
         .navigationTitle(state.selectedFile?.lastPathComponent ?? "Mado")
         .navigationSubtitle(subtitle)
         .toolbar {
+            ToolbarItem {
+                Button {
+                    state.toggleSearch()
+                } label: {
+                    Label("Search in Files", systemImage: "magnifyingglass")
+                }
+                .disabled(state.rootURL == nil)
+                .help("フォルダ横断検索 (⌘⇧F)")
+            }
             ToolbarItem {
                 Button {
                     state.openInTerminal()

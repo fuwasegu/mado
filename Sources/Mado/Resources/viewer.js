@@ -489,7 +489,8 @@ window.__render = function (payload) {
     container.innerHTML = html;
     transformAlerts(container);
     assignHeadingIds(container);
-    window.scrollTo(0, 0);
+    // 検索結果からの遷移(anchor 指定)時は先頭に戻さず該当見出しへ
+    if (!payload.anchor) window.scrollTo(0, 0);
   } else {
     const next = document.createElement("div");
     next.id = "content";
@@ -521,6 +522,9 @@ window.__render = function (payload) {
 
   renderMermaidBlocks();
   window.__find?.refresh();
+  if (payload.anchor || (payload.terms && payload.terms.length) || payload.phrase) {
+    window.__locate({ anchor: payload.anchor, terms: payload.terms || [], phrase: payload.phrase || "" });
+  }
   return { ms: Math.round((performance.now() - t0) * 10) / 10 };
 };
 
@@ -629,6 +633,106 @@ function assignHeadingIds(root) {
     h.id = unique;
   }
 }
+
+// 検索結果などから特定見出しへスクロールする(Swift 側 handoff 用)。
+// レイアウト確定後に実行するため二段 rAF を挟む。
+let flashTimer = null;
+function clearFlash() {
+  clearTimeout(flashTimer);
+  // 直前のハイライトを解除。ラップした span は展開して元に戻す。
+  for (const el of document.querySelectorAll(".mdv-flash")) {
+    if (el.dataset.mdvWrap === "1") {
+      const p = el.parentNode;
+      if (p) { while (el.firstChild) p.insertBefore(el.firstChild, el); p.removeChild(el); p.normalize(); }
+    } else {
+      el.classList.remove("mdv-flash");
+    }
+  }
+}
+// 要素そのものを 5 秒ハイライト(見出しフォールバック用)
+function flashElement(el) {
+  clearFlash();
+  void el.offsetWidth;
+  el.classList.add("mdv-flash");
+  flashTimer = setTimeout(() => el.classList.remove("mdv-flash"), 5200);
+}
+// テキスト範囲(実際の一致箇所)を span で包んで 5 秒ハイライト
+function flashRange(range) {
+  clearFlash();
+  try {
+    const span = document.createElement("span");
+    span.className = "mdv-flash";
+    span.dataset.mdvWrap = "1";
+    range.surroundContents(span); // 単一テキストノード内ならOK
+    span.scrollIntoView({ behavior: "instant", block: "center" });
+    flashTimer = setTimeout(() => {
+      const p = span.parentNode;
+      if (p) { while (span.firstChild) p.insertBefore(span.firstChild, span); p.removeChild(span); p.normalize(); }
+    }, 5200);
+    return true;
+  } catch (e) {
+    return false; // 範囲が複数ノードにまたがる等 → フォールバック
+  }
+}
+
+// 見出しに属するセクション(見出し + 次の見出しまでの兄弟)から最初の一致テキスト範囲を探す
+function findTermRange(terms, headingEl) {
+  const lowers = (terms || []).map((t) => (t || "").toLowerCase()).filter((t) => t.length >= 1);
+  if (!lowers.length) return null;
+  let scope = [];
+  if (headingEl) {
+    let n = headingEl.nextElementSibling;
+    while (n && !/^H[1-6]$/.test(n.tagName)) { scope.push(n); n = n.nextElementSibling; }
+    if (!scope.length) scope = [headingEl];
+  } else {
+    const c = document.getElementById("content");
+    scope = c ? [c] : [];
+  }
+  for (const el of scope) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const text = node.nodeValue.toLowerCase();
+      let best = -1;
+      let bestLen = 0;
+      for (const t of lowers) {
+        const i = text.indexOf(t);
+        if (i >= 0 && (best < 0 || i < best)) { best = i; bestLen = t.length; }
+      }
+      if (best >= 0) {
+        const r = document.createRange();
+        r.setStart(node, best);
+        r.setEnd(node, best + bestLen);
+        return r;
+      }
+    }
+  }
+  return null;
+}
+
+// 検索結果からの遷移: 一致テキスト → 意味フレーズ → 見出し の順で着地してハイライト。
+// phrase は意味ヒットの「最類似セグメント」から切り出した素の文片(Swift 側で生成)。
+window.__locate = function (payload) {
+  const anchor = payload && payload.anchor;
+  const terms = (payload && payload.terms) || [];
+  const phrase = (payload && payload.phrase) || "";
+  const apply = () => {
+    const headingEl = anchor ? document.getElementById(anchor) : null;
+    let range = findTermRange(terms, headingEl);
+    if (!range && phrase) range = findTermRange([phrase], headingEl);
+    if (range && flashRange(range)) return true;
+    if (headingEl) {
+      headingEl.scrollIntoView({ behavior: "instant", block: "center" });
+      flashElement(headingEl);
+      return true;
+    }
+    return false;
+  };
+  if (apply()) return;
+  requestAnimationFrame(() => requestAnimationFrame(apply));
+};
+// 後方互換: 見出しのみ
+window.__gotoAnchor = function (slug) { window.__locate({ anchor: slug, terms: [] }); };
 
 // ---------- interactions ----------
 document.addEventListener("click", (e) => {

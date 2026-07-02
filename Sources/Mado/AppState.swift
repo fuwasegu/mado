@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import SearchCore
 
 @MainActor
 final class AppState: ObservableObject {
@@ -16,6 +17,70 @@ final class AppState: ObservableObject {
 
     private var watcher: FSEventsWatcher?
     private var rescanWorkItem: DispatchWorkItem?
+
+    /// 検索インデックス(バックグラウンド)。表示パスとは独立して動く。
+    let searchIndex = SearchIndex()
+    private var searchWorkItem: DispatchWorkItem?
+    private var pendingSearchPaths: Set<String> = []
+
+    // MARK: - 検索パネル(表示面とは別 view)
+    @Published var isSearchPresented = false
+    @Published var searchQuery = ""
+    @Published private(set) var searchResults: [SearchHit] = []
+    @Published private(set) var searchFacets: [QueryFacet] = []
+    @Published private(set) var searchTerms: [String] = []
+    @Published private(set) var isSearching = false
+    /// 意味索引の構築進捗(done/total)。total>0 かつ done<total の間だけ表示。
+    @Published private(set) var embedDone = 0
+    @Published private(set) var embedTotal = 0
+    var isEmbeddingIndex: Bool { embedTotal > 0 && embedDone < embedTotal }
+    /// 解釈チップで個別解除された facet id(プランナ誤解釈の UI 回収)。
+    @Published private(set) var disabledFacets: Set<String> = []
+    /// 現在ハイライト中の結果(由来フッタ/選択表示用)。ナビゲーションは openResult で別途行う。
+    @Published var highlightedHitID: SearchHit.ID?
+    private var searchTask: Task<Void, Never>?
+
+    func openSearch() { isSearchPresented = true }
+    func closeSearch() { isSearchPresented = false }
+    func toggleSearch() { isSearchPresented.toggle() }
+
+    /// 入力に応じて背景 actor で検索を実行(逐次キャンセル)。UI スレッドは触らせない。
+    func runSearch() {
+        let q = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        searchTask?.cancel()
+        guard !q.isEmpty else {
+            searchResults = []; searchFacets = []; searchTerms = []
+            disabledFacets = []; highlightedHitID = nil; isSearching = false; return
+        }
+        isSearching = true
+        let interp = searchIndex.interpret(q)   // 軽量・nonisolated
+        searchFacets = interp.facets
+        searchTerms = interp.terms
+        let excluded = disabledFacets
+        searchTask = Task { [searchIndex] in
+            let hits = await searchIndex.search(q, limit: 80, excludedFacets: excluded)
+            if Task.isCancelled { return }
+            await MainActor.run {
+                self.searchResults = hits
+                self.highlightedHitID = hits.first?.id
+                self.isSearching = false
+            }
+        }
+    }
+
+    /// 解釈チップのタップ: facet を個別に無効化/再有効化して再検索。
+    func toggleFacet(_ id: String) {
+        if disabledFacets.contains(id) { disabledFacets.remove(id) } else { disabledFacets.insert(id) }
+        runSearch()
+    }
+
+    /// 検索結果を開く: ファイルを表示面に渡し、該当見出しへスクロール(handoff)。
+    func openResult(_ hit: SearchHit) {
+        NotificationCenter.default.post(
+            name: .mdvNavigate, object: self,
+            userInfo: ["path": hit.path, "anchor": hit.headingSlug,
+                       "terms": searchTerms, "phrase": hit.landingPhrase ?? ""])
+    }
 
     // MARK: - Open / Restore
 
@@ -78,6 +143,18 @@ final class AppState: ObservableObject {
         rootNode = tree
         startWatching(url)
 
+        // 検索インデックスは起動/切替をブロックしない。背景で開いて差分照合する。
+        // (起動 0.4s を守るため UI スレッド・初回 FileNode.scan とは別経路)
+        Task.detached(priority: .utility) { [weak self, searchIndex] in
+            await searchIndex.setProgressHandler { done, total in
+                Task { @MainActor in
+                    self?.embedDone = done
+                    self?.embedTotal = total
+                }
+            }
+            await searchIndex.openAndReconcile(root: url)
+        }
+
         // 既定の選択: 前回の選択がツリー内に残っていれば維持、なければ README → 最初の .md
         if let selected = selectedFile, selected.path.hasPrefix(url.path),
            FileManager.default.fileExists(atPath: selected.path) {
@@ -127,6 +204,10 @@ final class AppState: ObservableObject {
     )
 
     private func handleFileSystemEvents(_ events: [FSEvent]) {
+        // 検索インデックスは「内容変更」も拾う必要がある(ツリー再走査は Modified を無視するのと対照的)。
+        // .md を触るイベントを集めてデバウンスし、背景 actor に増分反映する。
+        queueSearchIndexUpdate(events)
+
         // 表示中ファイルに触れたイベントは即リロード(atomic rename は親ディレクトリのイベントになる場合もある)
         if let current = selectedFile {
             let dir = current.deletingLastPathComponent().path
@@ -156,6 +237,28 @@ final class AppState: ObservableObject {
         }
         rescanWorkItem = item
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: item)
+    }
+
+    /// .md を触る FS イベントを集約し、0.3s デバウンスして検索インデックスへ増分反映する。
+    private func queueSearchIndexUpdate(_ events: [FSEvent]) {
+        let mdPaths = events.lazy
+            .map { $0.path }
+            .filter { !FileNode.isInIgnoredDirectory(path: $0)
+                && Indexer.isIndexable(URL(fileURLWithPath: $0)) }
+        guard !mdPaths.isEmpty else { return }
+        pendingSearchPaths.formUnion(mdPaths)
+
+        searchWorkItem?.cancel()
+        let item = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            let paths = Array(self.pendingSearchPaths)
+            self.pendingSearchPaths.removeAll()
+            Task.detached(priority: .utility) { [searchIndex = self.searchIndex] in
+                await searchIndex.apply(paths: paths)
+            }
+        }
+        searchWorkItem = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: item)
     }
 
     /// 監視中の再走査はバックグラウンドで行い、差分があった時だけメインに反映する。

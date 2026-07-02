@@ -31,6 +31,11 @@ struct MarkdownWebView: NSViewRepresentable {
         private var lastRenderedContent: String?
         private var pending: (path: URL, content: String)?
         private var findObserver: NSObjectProtocol?
+        private var navObserver: NSObjectProtocol?
+        /// レンダリング完了後に適用する検索結果のジャンプ先(見出し slug + ハイライト語 + 意味フレーズ)。
+        private var pendingAnchor: String?
+        private var pendingTerms: [String] = []
+        private var pendingPhrase: String = ""
 
         init(state: AppState) {
             self.state = state
@@ -39,6 +44,9 @@ struct MarkdownWebView: NSViewRepresentable {
         deinit {
             if let findObserver {
                 NotificationCenter.default.removeObserver(findObserver)
+            }
+            if let navObserver {
+                NotificationCenter.default.removeObserver(navObserver)
             }
         }
 
@@ -67,6 +75,27 @@ struct MarkdownWebView: NSViewRepresentable {
                 webView?.evaluateJavaScript("window.__find && window.__find.open()")
             }
 
+            // 検索結果からの遷移: 同一ファイルなら即スクロール、別ファイルなら開いてから。
+            navObserver = NotificationCenter.default.addObserver(
+                forName: .mdvNavigate, object: state, queue: .main
+            ) { [weak self] note in
+                // queue: .main で配信されるため main actor 上にいることは保証されている
+                MainActor.assumeIsolated {
+                    guard let self,
+                          let path = note.userInfo?["path"] as? String else { return }
+                    let anchor = (note.userInfo?["anchor"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+                    self.pendingAnchor = anchor
+                    self.pendingTerms = (note.userInfo?["terms"] as? [String]) ?? []
+                    self.pendingPhrase = (note.userInfo?["phrase"] as? String) ?? ""
+                    let url = URL(fileURLWithPath: path)
+                    if self.lastRenderedPath == path {
+                        self.applyPendingLocate()   // 既に表示中 → 再描画せず locate
+                    } else if FileManager.default.fileExists(atPath: url.path), FileNode.isViewable(url) {
+                        self.state.selectedFile = url   // 描画完了後に applyPendingLocate が走る
+                    }
+                }
+            }
+
             if let templateURL = Bundle.module.url(
                 forResource: "template", withExtension: "html", subdirectory: "Resources"
             ) {
@@ -85,15 +114,38 @@ struct MarkdownWebView: NSViewRepresentable {
             }
             lastRenderedPath = path.path
             lastRenderedContent = content
+            var payload: [String: Any] = [
+                "path": path.path,
+                "dir": path.deletingLastPathComponent().path,
+                "content": content,
+            ]
+            // 検索結果からの遷移なら、描画と同時に該当箇所へ locate(中央寄せ+ハイライト)
+            if let anchor = pendingAnchor { payload["anchor"] = anchor }
+            if !pendingTerms.isEmpty { payload["terms"] = pendingTerms }
+            if !pendingPhrase.isEmpty { payload["phrase"] = pendingPhrase }
             webView.callAsyncJavaScript(
                 "window.__render(payload)",
-                arguments: ["payload": [
-                    "path": path.path,
-                    "dir": path.deletingLastPathComponent().path,
-                    "content": content,
-                ]],
+                arguments: ["payload": payload],
                 in: nil,
                 in: .page
+            ) { [weak self] _ in
+                // 描画後に確実に適用(payload 経由が効かなかった場合の保険)
+                self?.applyPendingLocate()
+            }
+        }
+
+        /// 保留中の検索ジャンプ先(見出し/一致テキスト)へ中央スクロール+ハイライトし、状態をクリアする。
+        private func applyPendingLocate() {
+            guard let webView, pendingAnchor != nil || !pendingTerms.isEmpty || !pendingPhrase.isEmpty else { return }
+            let anchor = pendingAnchor ?? ""
+            let terms = pendingTerms
+            let phrase = pendingPhrase
+            pendingAnchor = nil
+            pendingTerms = []
+            pendingPhrase = ""
+            webView.callAsyncJavaScript(
+                "window.__locate({ anchor: anchor, terms: terms, phrase: phrase })",
+                arguments: ["anchor": anchor, "terms": terms, "phrase": phrase], in: nil, in: .page
             ) { _ in }
         }
 
