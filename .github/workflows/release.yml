@@ -13,6 +13,8 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true   # e5 モデル(mlpackage)が LFS 管理のため
 
       - name: Extract version from tag
         id: version
@@ -59,6 +61,8 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
+          lfs: true   # e5 モデル(mlpackage)が LFS 管理のため
+        with:
           repository: fuwasegu/homebrew-tap
           token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           path: homebrew-tap
@@ -80,8 +84,9 @@ jobs:
             app "Mado.app"
 
             postflight do
-              system_command "/usr/bin/xattr",
-                             args: ["-cr", "#{appdir}/Mado.app"],
+              # -cr は SIP 保護の com.apple.provenance で失敗するため quarantine のみ削除
+              system_command "/bin/sh",
+                             args: ["-c", "/usr/bin/xattr -dr com.apple.quarantine '#{appdir}/Mado.app' || true"],
                              sudo: false
             end
 
