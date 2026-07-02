@@ -1,0 +1,100 @@
+empirical-prompt-tuning	プロンプトの再現性をAI に自動チューニングさせる方法 ~ 暗黙知を排除する	ai,prompt,llm,claude
+actrun-useful-tips	actrun v0.18 の新機能: actrun vis, actrun lint でワークフローを静的検査する	security,ci,actrun
+introduce-actrun	GitHub Actions 互換のローカルタスクランナーを作った	github,ci,moonbit
+decentrized-git-for-agents	bit + bit-relay で P2P でのコラボレーション開発を実現する	git,p2p,moonbit
+introduce-bit-by-moonbit	Bit - Git 互換のAIサンドボックス	git,vcs,moonbit
+build-my-own-layout-engine	ブラウザのレイアウトエンジンを自作してみた	frontend,browser,moonbit
+wasm-component-wadev	wa.dev に WebAssembly Component Model のライブラリを公開してみた	wasm,moonbit
+moonbit-vite-plugin	vite-plugin-moonbit で moonbit でフロントエンドを作る	moonbit
+moonbit-advent-last-day	Moonbit Advent Calendar の振り返り ~ はたして実用的な言語なのか	moonbit
+moonbit-luna-ui	Luna UI - JS/Moonbit のための宣言的UI. 軽量、高速、そして WebComponents First	webcomponents,frontend,ssr,moonbit
+moonbit-useful-tips	Moonbit moon cli の便利機能達 - 組み込み lint, bench, snapshot, coverage, doc	moonbit
+markdown-incremental-preview	最速最強の Markdown コンパイラ作るぞ	markdown,moonbit
+moonbit-libgit2-native-ffi	MoonBit C FFI を使ってみて、libgit2 バインディングを作るまで	moonbit
+moonbit-mooncakes	Moonbitのパッケージレジストリである mooncakes.io を眺める	moonbit
+introduce-mizchi-js	mizchi/js.mbt で TS の代わりに Moonbit を書く	node,js,frontend,moonbit
+moonbit-day1	MoonBit - moon new が生成するテンプレートを理解する	moonbit
+moonbit-js-ffi	MoonBit で JS FFI を書こう！	js,moonbit
+moonbit-is-good-2025	MoonBit 最高 2025	moonbit
+moonbit-react-app	Moonbit で React アプリを書く	react,moonbit
+how-to-write-moonbit	Moonbit がもう少しで実用できそうな気配	moonbit
+codex-mcp-config-settings	openai/codex でのプロジェクト固有MCPを設定する	ai,codex
+introduce-visc-easy-e2e	ボックスモデルの要約による簡易 VRT を作ってみた - @mizchi/visc	typescript,frontend
+opencode-with-kimi-k2	opencode + kimi-k2 を動かす	ai
+smoke-review-for-filtering-context	モジュールを外から見た振る舞いだけAIレビューさせる smoke-review	ai
+discord-claude-code-interface	discord から claude-code を操作する(一時的な)サーバーを建てる	ai,deno,claudecode
+dena-ai-live-coding	AIコーディングハンズオンの講師をやりました(株式会社DeNA様の事例)	ai
+think-next-language-with-unison	Unison 言語から、「次」の言語を考察したい	unison
+claude-code-cheatsheet	速習 Claude Code	ai,claudecode
+introduce-lsmcp	lsmcp - 汎用的な LSP の MCP サーバーを作った	
+react-ink-renderer-for-ai-age	React Ink によるリッチ CLI (ClaudeCodeの裏側のアレ)	ai,react,node
+gemini-cli-for-google-search	gemini-cli の google_web_search が最高	ai
+ai-assertion-with-claude-code	AI による自然言語アサーション	ai,claudecode
+introduce-ts-similarity	similarity-ts でAIと人間が書き散らした重複コードを見つける	rust,typescript
+llm-aware-ts-project-starter	TypeScript 環境構築ガイドラインを書いてLLMに再現させる	typescript,vitest,llm,biome
+claude-code-singularity-point	Claude Code による技術的特異点を見届けろ	ai,claude
+claude-code-orchestrator	Claude Code 版 Orchestaror で複雑なタスクをステップ実行する	ai,claude,claudecode
+introduce-typescript-mcp	typescript-mcp で AI に LSP のリファクタリング機能を与える	ai,typescript,mcp
+claude-local-mcp-server	claude code でローカルなMCPサーバーを叩けるようにする	ai,typescript,mcp
+ts-effect-system-more	TS で Effect System を作ってみた	typescript
+domain-modeling-by-generator	TypeScript でエフェクトシステムを再現したい	typescript
+ai-refactoring	RooCode に自動でリファクタさせるオーケストレーター用プロンプト	ai,typescript,deno
+eslint-on-deno	Deno で eslint を動かす	deno,eslint
+tsgo-try-and-internal	tsgo をビルドしてLSPから会話する	typescript
+typescript-for-cline	TS特化Clineプログラミング(テキスト版)	typescript
+irusiru-modernize-cra-to-vite	気合の脱 create-react-app からの、AIによるフロントエンド改修の自動化 (株式会社イルシル様)	typescript,frontend
+vscode-zenn-image-paste	GiHhub+Zenn 連携で vscode markdown で画像を Ctrl-V したい	zenn
+try-moonbit-rabbit-tea	Moonbit の宣言的UIライブラリ Rabbit-TEA を試してみる	moonbit
+cloudflare-opennext-prisma-no-rust	遂に Cloudflare + Next.js(OpenNext) + Prisma 6.7.0(No Rust) が動く時代が来た	nextjs,cloudflare,prisma
+deno-lint-plugin-do-try	deno lint plugin で例外処理に関するルールを作った	typescript,deno
+cf-worker-for-pro-day5	仕事で使うための Cloudflare Workers 入門 Day 5 - ServiceBinding	cloudflare
+cf-worker-for-pro-day4	仕事で使うための Cloudflare Workers 入門 Day 4 - R2/KV/D1/Vectorize	cloudflare
+cf-worker-for-pro-day3	仕事で使うための Cloudflare Workers 入門 Day 3 - Queue/CronTriggers/Workflow	typescript,cloudflare
+cf-worker-for-pro-day2	仕事で使うための Cloudflare Workers 入門 Day 2 - Durable Objects	typescript,cloudflare
+cf-worker-introduce-for-pro	仕事で使うための Cloudflare Workers 入門 - Day1	typescript,cloudflare
+cf-ai-with-tools	CloudflareAI+hermes-2-pro-mistral-7b で Function Calling	ai
+ai-model-current-snapshot-2025-0414	プログラミング用途の生成AI関連ツールの評価 2025/04/14	ai
+pglite-vector-search	PGlite + pgvector で100行で実装するベクトル検索 (node/deno/drizzle)	ai,pgvector,pglite
+rewrite-readability-for-ai	本文抽出ライブラリの readability.js を DOM 非依存に書き直す(WIP)	ai,typescript
+my-own-browser-run	Deno で browser-use を自作してみた (勉強用)	ai,deno
+ts-using-resource-management	AsyncDisposableStack でリソース確保処理を書く	deno,ts
+ts-using-sampling-logger	TS の using でプリントデバッグを確率的にサンプリングして出力する	ai,typescript
+build-custom-lighthouse-plugin	Lighthouseのプラグインを作る	typescript,deno,web,performance
+ai-ddd-tdd-prompt	自分のコーディングスタイル(TDD/DDD/FP)をAIに叩き込む	typescript,ddd,tdd
+deno-drizzle-pglite	Deno + Pglite + Drizzle で依存の少ないDBアプリを作る	deno,pglite
+all-in-on-cline	CLINEに全部賭けろ	ai,programming,cline
+auto-mizchi-writer	Clineに自分をエミュレートさせて技術記事を代筆させてみたらビビった	javascript,puppeteer,automation
+deno-mcp-server	Deno で RooCode 用にローカルMCPサーバーをさっと作る	ai,deno,mcp
+deno-notebook	Deno Jupyter Notebook で書き捨てのスクラップを作る	deno
+lighthouse-reading	DeepDive Lighthouse	performance
+game-with-cline	人間によるコーディング禁止の CLINE 縛りでゲームを作らせてみた感想	ai
+studist-modernize-frontend	フロントエンドの段階的モダナイズ、のための自走設計 (株式会社スタディスト様)	rails,vue,frontend
+playwright-selector-generator	クリックしたDOM要素の Playwright Locator を生成する	frontend
+frontend-version-policies	俺のフロントエンド依存管理ポリシー20241120	node,frontend
+good-sample-code	「良いサンプルコード」を考える	
+server-timing-header-for-frontend	Server-Timing ヘッダの情報をフロントエンド解析に使う	performance
+practical-await-using	実践: await using でリソース開放	typescript
+vue-vapor-vs-svelte-output	Svelte と Vue Vapor Mode の出力を比較する	vue,svelte,vapor
+fast-dom-text-search	Playwrightを参考にブラウザ内テキスト検索を高速化する (事例紹介:サードパーティスクリプト提供会社)	js,frontend
+can-you-graphql-batch	GraphQL BatchでクライアントN+1を無理矢理倒す (事例紹介:株式会社ハウテレビジョン様)	graphql,performance
+puppeteer-as-localproxy	puppeteer をローカルプロキシとしてリクエストを監視＆モックする	puppteer
+zaraz-is-edge-gtm	Cloudflare版GTMのZarazの挙動確認&自前プラグインを実装	cloudflare,zaraz
+moonbit-live-resources	Moonbit を紹介したい with syumai	moonbit
+deno-cli-ai-sdk-tools-template	vercel ai で書き捨ての Deno CLI を書き直した (OpenAI, AnthropicAI, Google Gemini)	ai,typescript,deno
+json-for-everyone	プログラマじゃない人でもAI対話用にJSONを学ぶのが最高効率という提案	ai,json,study
+do-we-need-syakyo	プログラミング学習においての写経の必要性について	study
+browser-gzip-inflate-deflate	CompressionStream でブラウザで gzip 圧縮する	js
+next-ci-tuning-case-gixo	ジャイアントパンダに注意 - Next.js のビルド改善 (株式会社GiXo様)	next,typescript,pandacss
+experimental-node-typescript	node v22.7.x で TypeScript をそのまま実行する	typescript
+prisma-as-query-builder-only	Prisma TypedSQL をクエリビルダとしてのみ運用する	typescript,prisma
+remix-cloudflare-pages-supabase	Remix on CloudflarePages + Prisma + Supabase で銀の弾丸を目指す 20240828	cloudflare,prisma,supabase,remix
+you-cant-mangle-nested-obj	ネストオブジェクトの罠 RE: TypeScriptで「選択肢」の定義をEnum的な定数にまとめる	typescript
+wasm-platform	wasm のプラットフォームに spin と wasmCloud を試してみる	wasm
+moonbit-component-model-support	moonbitがcomonponent-modelをサポートしたのでjco+TypeScript から呼んでみた	wasm,moonbit
+moonbit-202404-202408	Moonbit言語の最近の変更点(2024/04~2024/08)	moonbit
+typescript-type-value-validation	TypeScriptの型と値とバリデーション	typescript
+better-llm-code-gen	LLM にコードを「差分」で書き換えさせるためのアイデア	ai,typescript,deno
+fastapi-starter	fastapi + pydantic + devcontainer でサーバーを建てる	python
+setup-python-20240604	Python + VSCode の環境構築 20240604	python
+ai-team-mate	プログラマ視点での生成AIとの付き合い方	ai
+practical-moonbit	自分が Moonbit 言語について知っていること	moonbit

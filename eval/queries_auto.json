@@ -1,0 +1,2437 @@
+[
+{
+"query": "actrun v0.18 の新機能: actrun vis, actrun lint でワークフローを静的検査する",
+"gold": "actrun-useful-tips.md",
+"type": "title"
+},
+{
+"query": "actrun export — ワークフローをシェルスクリプトに変換",
+"gold": "actrun-useful-tips.md",
+"type": "heading"
+},
+{
+"query": "npx 対応: npx @mizchi/actrun",
+"gold": "actrun-useful-tips.md",
+"type": "heading"
+},
+{
+"query": "思ったよりも好評で、短期間で 512 スターも付いています",
+"gold": "actrun-useful-tips.md",
+"type": "sentence"
+},
+{
+"query": "構造検証  : 重複ステップ ID、空ジョブ、不正な  uses  構文、不正な glob パターン",
+"gold": "actrun-useful-tips.md",
+"type": "sentence"
+},
+{
+"query": "AI による自然言語アサーション",
+"gold": "ai-assertion-with-claude-code.md",
+"type": "title"
+},
+{
+"query": "これを使って、自動テスト中に自然言語によるアサーションをするという、(最悪な)アイデアを思いついたのでメモしておく",
+"gold": "ai-assertion-with-claude-code.md",
+"type": "sentence"
+},
+{
+"query": "...これはもはや自動テストなのかも怪しく、超富豪的なので、これを更に AI に自身でルールベースに書き換える、という実装とセットじゃないと使いたくない",
+"gold": "ai-assertion-with-claude-code.md",
+"type": "sentence"
+},
+{
+"query": "自分のコーディングスタイル(TDD/DDD/FP)をAIに叩き込む",
+"gold": "ai-ddd-tdd-prompt.md",
+"type": "title"
+},
+{
+"query": "サンプルプロジェクトのテスト実行結果",
+"gold": "ai-ddd-tdd-prompt.md",
+"type": "heading"
+},
+{
+"query": "TL;DR（要約）",
+"gold": "ai-ddd-tdd-prompt.md",
+"type": "heading"
+},
+{
+"query": "これらのテストはドメインルールを明確に表現し、実装の正しさを保証しています",
+"gold": "ai-ddd-tdd-prompt.md",
+"type": "sentence"
+},
+{
+"query": "エンティティ、値オブジェクト、リポジトリなどDDDの用語に忠実",
+"gold": "ai-ddd-tdd-prompt.md",
+"type": "sentence"
+},
+{
+"query": "プログラミング用途の生成AI関連ツールの評価 2025/04/14",
+"gold": "ai-model-current-snapshot-2025-0414.md",
+"type": "title"
+},
+{
+"query": "リファクタとコンテキストウィンドウ",
+"gold": "ai-model-current-snapshot-2025-0414.md",
+"type": "heading"
+},
+{
+"query": "コーディングエージェント/拡張",
+"gold": "ai-model-current-snapshot-2025-0414.md",
+"type": "heading"
+},
+{
+"query": "@/src/get perf.ts を @/docs/how to test with lighthouse.md に従って書き直して",
+"gold": "ai-model-current-snapshot-2025-0414.md",
+"type": "sentence"
+},
+{
+"query": "全体的に  try catch  書きすぎて品質が悪くなることが多い",
+"gold": "ai-model-current-snapshot-2025-0414.md",
+"type": "sentence"
+},
+{
+"query": "RooCode に自動でリファクタさせるオーケストレーター用プロンプト",
+"gold": "ai-refactoring.md",
+"type": "title"
+},
+{
+"query": "RooCode のカスタマイズ",
+"gold": "ai-refactoring.md",
+"type": "heading"
+},
+{
+"query": "オーケストレーター用のプロンプトで、ワークフローを指示",
+"gold": "ai-refactoring.md",
+"type": "heading"
+},
+{
+"query": "たぶん  .roo/rules/rules.md  と  .roo/rules orchestrator/01 workflows.md  だけ見ればいいです",
+"gold": "ai-refactoring.md",
+"type": "sentence"
+},
+{
+"query": "<https://ssaits.jp/promapedia/glossary/hyrums law.html",
+"gold": "ai-refactoring.md",
+"type": "sentence"
+},
+{
+"query": "プログラマ視点での生成AIとの付き合い方",
+"gold": "ai-team-mate.md",
+"type": "title"
+},
+{
+"query": "AI はアシスタントか、チームメイトか、超知性か",
+"gold": "ai-team-mate.md",
+"type": "heading"
+},
+{
+"query": "自分はよいナビゲーターになれるか？",
+"gold": "ai-team-mate.md",
+"type": "heading"
+},
+{
+"query": "プログラミングできないままAIにコードを書かせても、プログラミングで実現できる範囲はどこまでか、という発想力の部分で差がついていく",
+"gold": "ai-team-mate.md",
+"type": "sentence"
+},
+{
+"query": "基本的に、 GPT 4 と Claude 3 Opus を使った経験を念頭に置いて話をする",
+"gold": "ai-team-mate.md",
+"type": "sentence"
+},
+{
+"query": "CLINEに全部賭けろ",
+"gold": "all-in-on-cline.md",
+"type": "title"
+},
+{
+"query": "Cline とプログラミング言語適性",
+"gold": "all-in-on-cline.md",
+"type": "heading"
+},
+{
+"query": "Cline に得意なことをやらせる",
+"gold": "all-in-on-cline.md",
+"type": "heading"
+},
+{
+"query": "というところまで予想付くので、Cline が行き着いた先で熱くなるテーマが、コンテナセキュリティと WebAssembly Sandbox になる、という予想がある",
+"gold": "all-in-on-cline.md",
+"type": "sentence"
+},
+{
+"query": "これに関しては、AIモデルの性能向上を待つか、エキスパートとして寄り添う必要がある",
+"gold": "all-in-on-cline.md",
+"type": "sentence"
+},
+{
+"query": "Clineに自分をエミュレートさせて技術記事を代筆させてみたらビビった",
+"gold": "auto-mizchi-writer.md",
+"type": "title"
+},
+{
+"query": "3. パフォーマンス計測",
+"gold": "auto-mizchi-writer.md",
+"type": "heading"
+},
+{
+"query": "3. メモリ使用量の最適化",
+"gold": "auto-mizchi-writer.md",
+"type": "heading"
+},
+{
+"query": "最近、ブラウザ自動化のためにPuppeteerを使う機会が増えてきた",
+"gold": "auto-mizchi-writer.md",
+"type": "sentence"
+},
+{
+"query": "Puppeteerは、ブラウザ自動化のための強力なツール",
+"gold": "auto-mizchi-writer.md",
+"type": "sentence"
+},
+{
+"query": "LLM にコードを「差分」で書き換えさせるためのアイデア",
+"gold": "better-llm-code-gen.md",
+"type": "title"
+},
+{
+"query": "プロンプトの設計",
+"gold": "better-llm-code-gen.md",
+"type": "heading"
+},
+{
+"query": "既存の LLM コード生成の問題",
+"gold": "better-llm-code-gen.md",
+"type": "heading"
+},
+{
+"query": "<https://www.freecodecamp.org/news/automated unit testing with testgen llm and cover agent/?ref=dailydev",
+"gold": "better-llm-code-gen.md",
+"type": "sentence"
+},
+{
+"query": "+:  で末尾追加の機能を追加したのも、このへんの誤爆を減らすため",
+"gold": "better-llm-code-gen.md",
+"type": "sentence"
+},
+{
+"query": "CompressionStream でブラウザで gzip 圧縮する",
+"gold": "browser-gzip-inflate-deflate.md",
+"type": "title"
+},
+{
+"query": "ブラウザ上のJSで gzip できると何が嬉しいかと言うと、なんかバイナリデータを保存する必要がある時に ArrayBuffer を gzip したやつを indexeddb の blob にして突っ込むと、ストレージサイズかなり節約できます",
+"gold": "browser-gzip-inflate-deflate.md",
+"type": "sentence"
+},
+{
+"query": "わかってる人向けに言うと、バンドルサイズ大きめの JS実装の pako や zlib.js が不要になって、ブラウザネイティブの(たぶんHTTP上のgzip展開と同等の)高速な実装が使えます",
+"gold": "browser-gzip-inflate-deflate.md",
+"type": "sentence"
+},
+{
+"query": "Lighthouseのプラグインを作る",
+"gold": "build-custom-lighthouse-plugin.md",
+"type": "title"
+},
+{
+"query": "最小限のプラグイン実装",
+"gold": "build-custom-lighthouse-plugin.md",
+"type": "heading"
+},
+{
+"query": "プラグインの設定と実行方法",
+"gold": "build-custom-lighthouse-plugin.md",
+"type": "heading"
+},
+{
+"query": "Auditは、Gathererが収集したデータを使って、スコアを計算するコンポーネントです",
+"gold": "build-custom-lighthouse-plugin.md",
+"type": "sentence"
+},
+{
+"query": "Audit.meta.requiredArtifacts  で必要なGathererを指定すると、自動的に  Gatherer#getArtifact  の結果が渡される",
+"gold": "build-custom-lighthouse-plugin.md",
+"type": "sentence"
+},
+{
+"query": "ブラウザのレイアウトエンジンを自作してみた",
+"gold": "build-my-own-layout-engine.md",
+"type": "title"
+},
+{
+"query": "ゴールの設定",
+"gold": "build-my-own-layout-engine.md",
+"type": "heading"
+},
+{
+"query": "WPT: Web Platform Tests を通していく",
+"gold": "build-my-own-layout-engine.md",
+"type": "heading"
+},
+{
+"query": "また、Rust 製の taffy という実装があります",
+"gold": "build-my-own-layout-engine.md",
+"type": "sentence"
+},
+{
+"query": "css flexbox   148   234   63.2%",
+"gold": "build-my-own-layout-engine.md",
+"type": "sentence"
+},
+{
+"query": "GraphQL BatchでクライアントN+1を無理矢理倒す (事例紹介:株式会社ハウテレビジョン様)",
+"gold": "can-you-graphql-batch.md",
+"type": "title"
+},
+{
+"query": "バンドルサイズの分析",
+"gold": "can-you-graphql-batch.md",
+"type": "heading"
+},
+{
+"query": "GraphQL Client Batch の試験導入",
+"gold": "can-you-graphql-batch.md",
+"type": "heading"
+},
+{
+"query": "Next Page Router なので、   app  が主要なエントリポイントになる",
+"gold": "can-you-graphql-batch.md",
+"type": "sentence"
+},
+{
+"query": "JSのTBT、リクエスト依存のLCP/CLS という重い場所の特定とLighthouse上の点数の内訳を洗い出し、それぞれの改善PoCまでは作ることができた",
+"gold": "can-you-graphql-batch.md",
+"type": "sentence"
+},
+{
+"query": "CloudflareAI+hermes-2-pro-mistral-7b で Function Calling",
+"gold": "cf-ai-with-tools.md",
+"type": "title"
+},
+{
+"query": "簡単なAI実行ワーカー",
+"gold": "cf-ai-with-tools.md",
+"type": "heading"
+},
+{
+"query": "Form+SSE でストリーム対応する",
+"gold": "cf-ai-with-tools.md",
+"type": "heading"
+},
+{
+"query": "とはいえ、最初に書いたように、 真面目にやるなら Cloudflare AI Gateway を使ったほうがいい",
+"gold": "cf-ai-with-tools.md",
+"type": "sentence"
+},
+{
+"query": "そりゃ現状のローカルLLM相当のものしか使えず、性能微妙だもんね...",
+"gold": "cf-ai-with-tools.md",
+"type": "sentence"
+},
+{
+"query": "仕事で使うための Cloudflare Workers 入門 Day 2 - Durable Objects",
+"gold": "cf-worker-for-pro-day2.md",
+"type": "title"
+},
+{
+"query": "Counter の実装",
+"gold": "cf-worker-for-pro-day2.md",
+"type": "heading"
+},
+{
+"query": "Workers Assets を知る",
+"gold": "cf-worker-for-pro-day2.md",
+"type": "heading"
+},
+{
+"query": "今まで WebSocket をやったことない、知らない人にとってはそうなんだ、って感じだと思いますが、今まで自力で WebSocket をやってた人にはこれが感動ポイントです",
+"gold": "cf-worker-for-pro-day2.md",
+"type": "sentence"
+},
+{
+"query": "今までは foo というキーで Worker を初期化していました",
+"gold": "cf-worker-for-pro-day2.md",
+"type": "sentence"
+},
+{
+"query": "仕事で使うための Cloudflare Workers 入門 Day 3 - Queue/CronTriggers/Workflow",
+"gold": "cf-worker-for-pro-day3.md",
+"type": "title"
+},
+{
+"query": "Cron Triggers",
+"gold": "cf-worker-for-pro-day3.md",
+"type": "heading"
+},
+{
+"query": "Workflows",
+"gold": "cf-worker-for-pro-day3.md",
+"type": "heading"
+},
+{
+"query": "今回は同じ Worker 実装が同時に処理する設定です",
+"gold": "cf-worker-for-pro-day3.md",
+"type": "sentence"
+},
+{
+"query": "(公式サンプルをみるに、どうやらベクトル検索のインデックスを想定しているように見えます)",
+"gold": "cf-worker-for-pro-day3.md",
+"type": "sentence"
+},
+{
+"query": "仕事で使うための Cloudflare Workers 入門 Day 4 - R2/KV/D1/Vectorize",
+"gold": "cf-worker-for-pro-day4.md",
+"type": "title"
+},
+{
+"query": "Workers KV",
+"gold": "cf-worker-for-pro-day4.md",
+"type": "heading"
+},
+{
+"query": "Vectorize",
+"gold": "cf-worker-for-pro-day4.md",
+"type": "heading"
+},
+{
+"query": "<https://developers.cloudflare.com/r2/api/workers/workers api usage/",
+"gold": "cf-worker-for-pro-day4.md",
+"type": "sentence"
+},
+{
+"query": "<https://zenn.dev/mizchi/articles/s3 compatible client",
+"gold": "cf-worker-for-pro-day4.md",
+"type": "sentence"
+},
+{
+"query": "仕事で使うための Cloudflare Workers 入門 Day 5 - ServiceBinding",
+"gold": "cf-worker-for-pro-day5.md",
+"type": "title"
+},
+{
+"query": "Service Binding",
+"gold": "cf-worker-for-pro-day5.md",
+"type": "heading"
+},
+{
+"query": "発展型 better micro frontend",
+"gold": "cf-worker-for-pro-day5.md",
+"type": "heading"
+},
+{
+"query": "name と service 名を一致させる必要があります",
+"gold": "cf-worker-for-pro-day5.md",
+"type": "sentence"
+},
+{
+"query": "<https://blog.cloudflare.com/better micro frontends/",
+"gold": "cf-worker-for-pro-day5.md",
+"type": "sentence"
+},
+{
+"query": "仕事で使うための Cloudflare Workers 入門 - Day1",
+"gold": "cf-worker-introduce-for-pro.md",
+"type": "title"
+},
+{
+"query": "エントリポイントと Wrangler 環境",
+"gold": "cf-worker-introduce-for-pro.md",
+"type": "heading"
+},
+{
+"query": "Cloudflare Access で認証を掛ける",
+"gold": "cf-worker-introduce-for-pro.md",
+"type": "heading"
+},
+{
+"query": "手っ取り早く試したいなら、管理画面内からドメインを買えるので、買って DNS を設定してください",
+"gold": "cf-worker-introduce-for-pro.md",
+"type": "sentence"
+},
+{
+"query": "割と流行りに応じて無節操になんでも作ってくる感じです",
+"gold": "cf-worker-introduce-for-pro.md",
+"type": "sentence"
+},
+{
+"query": "速習 Claude Code",
+"gold": "claude-code-cheatsheet.md",
+"type": "title"
+},
+{
+"query": "セキュリティ",
+"gold": "claude-code-cheatsheet.md",
+"type": "heading"
+},
+{
+"query": "セッションの管理",
+"gold": "claude-code-cheatsheet.md",
+"type": "heading"
+},
+{
+"query": "最初はデフォルトで使用しつつ、慣れてきたら permission を制御して権限を渡して許容できる範囲で自動化していくのを推奨",
+"gold": "claude-code-cheatsheet.md",
+"type": "sentence"
+},
+{
+"query": "<https://docs.anthropic.com/en/docs/claude code/settings",
+"gold": "claude-code-cheatsheet.md",
+"type": "sentence"
+},
+{
+"query": "Claude Code 版 Orchestaror で複雑なタスクをステップ実行する",
+"gold": "claude-code-orchestrator.md",
+"type": "title"
+},
+{
+"query": "実行例：TypeScript MCP プロジェクトでの活用",
+"gold": "claude-code-orchestrator.md",
+"type": "heading"
+},
+{
+"query": "実行コマンド",
+"gold": "claude-code-orchestrator.md",
+"type": "heading"
+},
+{
+"query": "今回の例では、「分析 → テスト → 修正 → コミット」という一連の作業を、構造化された方法で自動実行できた",
+"gold": "claude-code-orchestrator.md",
+"type": "sentence"
+},
+{
+"query": "Adapted Plan: Step 1 → Step 2 → Skip Step 3 → Simplified Step 4 (just commit)",
+"gold": "claude-code-orchestrator.md",
+"type": "sentence"
+},
+{
+"query": "Claude Code による技術的特異点を見届けろ",
+"gold": "claude-code-singularity-point.md",
+"type": "title"
+},
+{
+"query": "おまけ: vs プログラマ不要論 最新版",
+"gold": "claude-code-singularity-point.md",
+"type": "heading"
+},
+{
+"query": "AI2027 の予言する、自己改善する AI",
+"gold": "claude-code-singularity-point.md",
+"type": "heading"
+},
+{
+"query": "ただ、CLINE 時点でもモデル性能は不足しているのもわかっている",
+"gold": "claude-code-singularity-point.md",
+"type": "sentence"
+},
+{
+"query": "仕事は増えるかもしれないし、減るかもしれないし、AI ベーシックインカムが来るかもしれないし、来ないかもしれない(資本主義的には、まあ来ない) 産業革命が来ても人類は幸せになったわけではないし、AI による革新もその手のものだろう",
+"gold": "claude-code-singularity-point.md",
+"type": "sentence"
+},
+{
+"query": "claude code でローカルなMCPサーバーを叩けるようにする",
+"gold": "claude-local-mcp-server.md",
+"type": "title"
+},
+{
+"query": "おまけ: deno 用",
+"gold": "claude-local-mcp-server.md",
+"type": "heading"
+},
+{
+"query": "追記: .mcp.json",
+"gold": "claude-local-mcp-server.md",
+"type": "heading"
+},
+{
+"query": "<https://docs.anthropic.com/ja/docs/claude code/settings",
+"gold": "claude-local-mcp-server.md",
+"type": "sentence"
+},
+{
+"query": "MCP サーバーはパーミッションを絞って起動したいので、自分は deno で書いてることが多いです",
+"gold": "claude-local-mcp-server.md",
+"type": "sentence"
+},
+{
+"query": "遂に Cloudflare + Next.js(OpenNext) + Prisma 6.7.0(No Rust) が動く時代が来た",
+"gold": "cloudflare-opennext-prisma-no-rust.md",
+"type": "title"
+},
+{
+"query": "OpenNext for Cloudflare",
+"gold": "cloudflare-opennext-prisma-no-rust.md",
+"type": "heading"
+},
+{
+"query": "Optional: prisma-postgres で DB をホスティング",
+"gold": "cloudflare-opennext-prisma-no-rust.md",
+"type": "heading"
+},
+{
+"query": "(このとき    no engine  指定できないかも)",
+"gold": "cloudflare-opennext-prisma-no-rust.md",
+"type": "sentence"
+},
+{
+"query": "RSC も vercel + next.js の専売特許だったのが、やっと開放されつつあります",
+"gold": "cloudflare-opennext-prisma-no-rust.md",
+"type": "sentence"
+},
+{
+"query": "openai/codex でのプロジェクト固有MCPを設定する",
+"gold": "codex-mcp-config-settings.md",
+"type": "title"
+},
+{
+"query": "追記 for serena",
+"gold": "codex-mcp-config-settings.md",
+"type": "heading"
+},
+{
+"query": "手段 1 CODEX\\HOME=$PWD/.codex",
+"gold": "codex-mcp-config-settings.md",
+"type": "heading"
+},
+{
+"query": "というわけで、どう考えてもあとから別の手段で不要になりそうな TIPS でした",
+"gold": "codex-mcp-config-settings.md",
+"type": "sentence"
+},
+{
+"query": ".codex/config.toml  を次のように設定します",
+"gold": "codex-mcp-config-settings.md",
+"type": "sentence"
+},
+{
+"query": "bit + bit-relay で P2P でのコラボレーション開発を実現する",
+"gold": "decentrized-git-for-agents.md",
+"type": "title"
+},
+{
+"query": "簡単な使い方の例",
+"gold": "decentrized-git-for-agents.md",
+"type": "heading"
+},
+{
+"query": "リポジトリを relay 経由で公開する",
+"gold": "decentrized-git-for-agents.md",
+"type": "heading"
+},
+{
+"query": "bit は git 互換の CLIツール+α (Git本体の25000件のe2eテストを通過)",
+"gold": "decentrized-git-for-agents.md",
+"type": "sentence"
+},
+{
+"query": "デフォルトの relay は本プロジェクトからデプロイした公開インスタンス（ bit relay.mizchi.workers.dev ）を使う",
+"gold": "decentrized-git-for-agents.md",
+"type": "sentence"
+},
+{
+"query": "AIコーディングハンズオンの講師をやりました(株式会社DeNA様の事例)",
+"gold": "dena-ai-live-coding.md",
+"type": "title"
+},
+{
+"query": "わかったこと",
+"gold": "dena-ai-live-coding.md",
+"type": "heading"
+},
+{
+"query": "当日 3 時間程度を想定",
+"gold": "dena-ai-live-coding.md",
+"type": "heading"
+},
+{
+"query": "ノウハウを秘匿しておいても自分の食い扶持にもなりそうではあるんですが、それ以上に AI コーディングが一般化してほしいと願っています",
+"gold": "dena-ai-live-coding.md",
+"type": "sentence"
+},
+{
+"query": "教材を固めている分、その場でブレる出力結果にアドリブで対応するようにしています",
+"gold": "dena-ai-live-coding.md",
+"type": "sentence"
+},
+{
+"query": "vercel ai で書き捨ての Deno CLI を書き直した (OpenAI, AnthropicAI, Google Gemini)",
+"gold": "deno-cli-ai-sdk-tools-template.md",
+"type": "title"
+},
+{
+"query": "Tools + AnthropicAI",
+"gold": "deno-cli-ai-sdk-tools-template.md",
+"type": "heading"
+},
+{
+"query": "Deno 用共通パーツの解説",
+"gold": "deno-cli-ai-sdk-tools-template.md",
+"type": "heading"
+},
+{
+"query": "使うのは同じディレクトリに複数タスクを置くときぐらい",
+"gold": "deno-cli-ai-sdk-tools-template.md",
+"type": "sentence"
+},
+{
+"query": "Function Calling(Tools) の応答は結構面倒くさいので、AI SDK で組み合わせてサボる",
+"gold": "deno-cli-ai-sdk-tools-template.md",
+"type": "sentence"
+},
+{
+"query": "Deno + Pglite + Drizzle で依存の少ないDBアプリを作る",
+"gold": "deno-drizzle-pglite.md",
+"type": "title"
+},
+{
+"query": "DBスキーマを更新する",
+"gold": "deno-drizzle-pglite.md",
+"type": "heading"
+},
+{
+"query": "インメモリDBのテストコードを書く",
+"gold": "deno-drizzle-pglite.md",
+"type": "heading"
+},
+{
+"query": "deno でスクリプトを書きまくってるので、 deno を前提に色々試した",
+"gold": "deno-drizzle-pglite.md",
+"type": "sentence"
+},
+{
+"query": "<https://docs.deno.com/examples/sqlite/",
+"gold": "deno-drizzle-pglite.md",
+"type": "sentence"
+},
+{
+"query": "deno lint plugin で例外処理に関するルールを作った",
+"gold": "deno-lint-plugin-do-try.md",
+"type": "title"
+},
+{
+"query": "ネタ元: vscode の doGet~",
+"gold": "deno-lint-plugin-do-try.md",
+"type": "heading"
+},
+{
+"query": "おまけ: 作り方",
+"gold": "deno-lint-plugin-do-try.md",
+"type": "heading"
+},
+{
+"query": "あとは Few Shots で valid なコードと invalid なコードを与えて、夕飯食べ終わったらできてた",
+"gold": "deno-lint-plugin-do-try.md",
+"type": "sentence"
+},
+{
+"query": "eslint でないのは、単に deno lint plugin が作ってみたかったから...",
+"gold": "deno-lint-plugin-do-try.md",
+"type": "sentence"
+},
+{
+"query": "Deno で RooCode 用にローカルMCPサーバーをさっと作る",
+"gold": "deno-mcp-server.md",
+"type": "title"
+},
+{
+"query": "おまけ: 自分用のヘルパを書いた @mizchi/mcp-helper",
+"gold": "deno-mcp-server.md",
+"type": "heading"
+},
+{
+"query": "インメモリでテスト",
+"gold": "deno-mcp-server.md",
+"type": "heading"
+},
+{
+"query": "(余談ですが、このREADMEはこの実装自体のテストコードを読ませてRooCodeに生成させました)",
+"gold": "deno-mcp-server.md",
+"type": "sentence"
+},
+{
+"query": "<https://jsr.io/@mizchi/mcp helper",
+"gold": "deno-mcp-server.md",
+"type": "sentence"
+},
+{
+"query": "Deno Jupyter Notebook で書き捨てのスクラップを作る",
+"gold": "deno-notebook.md",
+"type": "title"
+},
+{
+"query": "環境のセットアップ",
+"gold": "deno-notebook.md",
+"type": "heading"
+},
+{
+"query": "実行結果を保存してくれるので、実験用の書き捨てのスクラップを作るのに便利です",
+"gold": "deno-notebook.md",
+"type": "sentence"
+},
+{
+"query": "<https://github.com/mizchi/deno notebook playground",
+"gold": "deno-notebook.md",
+"type": "sentence"
+},
+{
+"query": "discord から claude-code を操作する(一時的な)サーバーを建てる",
+"gold": "discord-claude-code-interface.md",
+"type": "title"
+},
+{
+"query": "どのように動くか",
+"gold": "discord-claude-code-interface.md",
+"type": "heading"
+},
+{
+"query": "<https://github.com/mizchi/ccdiscord",
+"gold": "discord-claude-code-interface.md",
+"type": "sentence"
+},
+{
+"query": "個人利用はともかく、それ以上で実用するには細かい権限制御が必要です",
+"gold": "discord-claude-code-interface.md",
+"type": "sentence"
+},
+{
+"query": "プログラミング学習においての写経の必要性について",
+"gold": "do-we-need-syakyo.md",
+"type": "title"
+},
+{
+"query": "プログラミングの写経の定義",
+"gold": "do-we-need-syakyo.md",
+"type": "heading"
+},
+{
+"query": "他、もっとメタい目線",
+"gold": "do-we-need-syakyo.md",
+"type": "heading"
+},
+{
+"query": "https://ja.wikipedia.org/wiki/写経",
+"gold": "do-we-need-syakyo.md",
+"type": "sentence"
+},
+{
+"query": "koba789 とペアプロした時、基本的に IDE の型情報と docs.rs しか見ていないように感じた",
+"gold": "do-we-need-syakyo.md",
+"type": "sentence"
+},
+{
+"query": "TypeScript でエフェクトシステムを再現したい",
+"gold": "domain-modeling-by-generator.md",
+"type": "title"
+},
+{
+"query": "Generator をつなげた時の TNext",
+"gold": "domain-modeling-by-generator.md",
+"type": "heading"
+},
+{
+"query": "代数的データっぽく複数のエフェクトをハンドルしたい",
+"gold": "domain-modeling-by-generator.md",
+"type": "heading"
+},
+{
+"query": "過去に、 Async Generator でこれができるのを確認した",
+"gold": "domain-modeling-by-generator.md",
+"type": "sentence"
+},
+{
+"query": "内部で発生したエフェクトをトレース可能になるので、デバッグしやすい",
+"gold": "domain-modeling-by-generator.md",
+"type": "sentence"
+},
+{
+"query": "プロンプトの再現性をAI に自動チューニングさせる方法 ~ 暗黙知を排除する",
+"gold": "empirical-prompt-tuning.md",
+"type": "title"
+},
+{
+"query": "反復 1: ベースライン",
+"gold": "empirical-prompt-tuning.md",
+"type": "heading"
+},
+{
+"query": "反復 3: メトリクス取得経路の明示",
+"gold": "empirical-prompt-tuning.md",
+"type": "heading"
+},
+{
+"query": "反復 3 (保守的に) / 反復 4 (上振れる) に加えて、ゼロ振れもありうる",
+"gold": "empirical-prompt-tuning.md",
+"type": "sentence"
+},
+{
+"query": "打ち切り  : 重要度と改善コストが釣り合わなくなったら止める",
+"gold": "empirical-prompt-tuning.md",
+"type": "sentence"
+},
+{
+"query": "Deno で eslint を動かす",
+"gold": "eslint-on-deno.md",
+"type": "title"
+},
+{
+"query": "動かしてみる",
+"gold": "eslint-on-deno.md",
+"type": "heading"
+},
+{
+"query": "Node 互換 API から叩く",
+"gold": "eslint-on-deno.md",
+"type": "heading"
+},
+{
+"query": "型の解決は自分で deno graph や LSP を繋ぎこみにいってもいいけど、tsgo 前提でエコシステム変わりそうだから、それまで待つ",
+"gold": "eslint-on-deno.md",
+"type": "sentence"
+},
+{
+"query": "deno lsp の型リゾルバーがないので、 tseslint.configs.strictTypeChecked  は動かない",
+"gold": "eslint-on-deno.md",
+"type": "sentence"
+},
+{
+"query": "node v22.7.x で TypeScript をそのまま実行する",
+"gold": "experimental-node-typescript.md",
+"type": "title"
+},
+{
+"query": "モジュール解決",
+"gold": "experimental-node-typescript.md",
+"type": "heading"
+},
+{
+"query": "--experimental-strip-types",
+"gold": "experimental-node-typescript.md",
+"type": "heading"
+},
+{
+"query": "なので、  tsconfig.json  側で  \"moduleResolution\": \"Bundler\"  や  \"allowImportingTsExtensions\": true  で拡張子を省略しないよう、辻褄を合わせる必要はある",
+"gold": "experimental-node-typescript.md",
+"type": "sentence"
+},
+{
+"query": "nodets  のエイリアスを作って、これらのオプションを仕込んでおいた",
+"gold": "experimental-node-typescript.md",
+"type": "sentence"
+},
+{
+"query": "Playwrightを参考にブラウザ内テキスト検索を高速化する (事例紹介:サードパーティスクリプト提供会社)",
+"gold": "fast-dom-text-search.md",
+"type": "title"
+},
+{
+"query": "Playwright 拡張のテキスト探索の実装",
+"gold": "fast-dom-text-search.md",
+"type": "heading"
+},
+{
+"query": "組込み時の拡張: MutationObserverの変更監視",
+"gold": "fast-dom-text-search.md",
+"type": "heading"
+},
+{
+"query": "ブラウザ内テキスト探索の高速化というテーマで改善を行いました",
+"gold": "fast-dom-text-search.md",
+"type": "sentence"
+},
+{
+"query": "基本的に、ブラウザをブロッキングしないために、実行フレームで 16ms を超えた部分を適当にピックして内訳を見ていった",
+"gold": "fast-dom-text-search.md",
+"type": "sentence"
+},
+{
+"query": "fastapi + pydantic + devcontainer でサーバーを建てる",
+"gold": "fastapi-starter.md",
+"type": "title"
+},
+{
+"query": "rye.scripts でタスクを登録",
+"gold": "fastapi-starter.md",
+"type": "heading"
+},
+{
+"query": "プロジェクトを作成",
+"gold": "fastapi-starter.md",
+"type": "heading"
+},
+{
+"query": "コンテナ内で  rye sync  して  rye run dev  できればおｋ",
+"gold": "fastapi-starter.md",
+"type": "sentence"
+},
+{
+"query": "この記事は python の学習を兼ねて色々書き散らしたので、 fastapi のサーバーを建てるという軸では理解しづらくなった",
+"gold": "fastapi-starter.md",
+"type": "sentence"
+},
+{
+"query": "俺のフロントエンド依存管理ポリシー20241120",
+"gold": "frontend-version-policies.md",
+"type": "title"
+},
+{
+"query": "依存更新時に eslint がブロッカーになるなら、他に移行しつつ捨てていいと思う",
+"gold": "frontend-version-policies.md",
+"type": "sentence"
+},
+{
+"query": "俺達は(世界は)雰囲気で Semver をやっている",
+"gold": "frontend-version-policies.md",
+"type": "sentence"
+},
+{
+"query": "人間によるコーディング禁止の CLINE 縛りでゲームを作らせてみた感想",
+"gold": "game-with-cline.md",
+"type": "title"
+},
+{
+"query": "恐怖体験: AIが勝手に手動テストをした",
+"gold": "game-with-cline.md",
+"type": "heading"
+},
+{
+"query": "モデル比較や工夫の余地",
+"gold": "game-with-cline.md",
+"type": "heading"
+},
+{
+"query": "なので、ある意味でドメイン知識が十分あって、設計が終わっているものをなぞらせてる",
+"gold": "game-with-cline.md",
+"type": "sentence"
+},
+{
+"query": "<https://store.steampowered.com/app/1794680/Vampire Survivors/?l=japanese",
+"gold": "game-with-cline.md",
+"type": "sentence"
+},
+{
+"query": "gemini-cli の google_web_search が最高",
+"gold": "gemini-cli-for-google-search.md",
+"type": "title"
+},
+{
+"query": "追記: 改良版WebSearch を使うな",
+"gold": "gemini-cli-for-google-search.md",
+"type": "heading"
+},
+{
+"query": "gemini   prompt \"WebSearch: <query \"",
+"gold": "gemini-cli-for-google-search.md",
+"type": "sentence"
+},
+{
+"query": "ぱっと見た感じ、gemini cli のとりあえず最高な点、とりあえず  google web search  がビルトインされています",
+"gold": "gemini-cli-for-google-search.md",
+"type": "sentence"
+},
+{
+"query": "「良いサンプルコード」を考える",
+"gold": "good-sample-code.md",
+"type": "title"
+},
+{
+"query": "コード断片の提示のトレードオフ",
+"gold": "good-sample-code.md",
+"type": "heading"
+},
+{
+"query": "自分の考える良いサンプルコード",
+"gold": "good-sample-code.md",
+"type": "heading"
+},
+{
+"query": "これは書き手からすると補完機能で雑に終わるんですが、写経するときはその行為を追えないのでこれもまた負荷が高いです",
+"gold": "good-sample-code.md",
+"type": "sentence"
+},
+{
+"query": "将来的には   experimental 外すだけで動く(予定)",
+"gold": "good-sample-code.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit がもう少しで実用できそうな気配",
+"gold": "how-to-write-moonbit.md",
+"type": "title"
+},
+{
+"query": "moonbitlang/async で OPENAI API を叩くコードを書いてみた",
+"gold": "how-to-write-moonbit.md",
+"type": "heading"
+},
+{
+"query": "現在の Moonbit のステータス",
+"gold": "how-to-write-moonbit.md",
+"type": "heading"
+},
+{
+"query": "HTTP Request を送る  moonbitlang/async/http  の  @http.post",
+"gold": "how-to-write-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "とはいえ「Rust 風」なのは今は  derive(FromJson, ToJson)  に名残を感じるぐらいで、今は結構 Rust から独立した言語に感じます",
+"gold": "how-to-write-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "GitHub Actions 互換のローカルタスクランナーを作った",
+"gold": "introduce-actrun.md",
+"type": "title"
+},
+{
+"query": "Advanced: 差分実行とリトライ",
+"gold": "introduce-actrun.md",
+"type": "heading"
+},
+{
+"query": "方法1: actions/checkout をスキップする",
+"gold": "introduce-actrun.md",
+"type": "heading"
+},
+{
+"query": "ローカルでは既にリポジトリの中にいるので、checkout は不要なはずです",
+"gold": "introduce-actrun.md",
+"type": "sentence"
+},
+{
+"query": "GitHub Actions は便利ですが、仕組み上、どうしても立ち上がりが遅いです",
+"gold": "introduce-actrun.md",
+"type": "sentence"
+},
+{
+"query": "Bit - Git 互換のAIサンドボックス",
+"gold": "introduce-bit-by-moonbit.md",
+"type": "title"
+},
+{
+"query": "実験的な機能: bit/x/fs",
+"gold": "introduce-bit-by-moonbit.md",
+"type": "heading"
+},
+{
+"query": "実験的な機能: bit/x/kv",
+"gold": "introduce-bit-by-moonbit.md",
+"type": "heading"
+},
+{
+"query": "object hash=sha256  : そもそも GitHub が未対応",
+"gold": "introduce-bit-by-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "メッセージの格納場所には git notes を使おうとしていて、Merge に対する notes で PR を表現できないか考えています",
+"gold": "introduce-bit-by-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "lsmcp - 汎用的な LSP の MCP サーバーを作った",
+"gold": "introduce-lsmcp.md",
+"type": "title"
+},
+{
+"query": "1. 言語サーバーのインストール",
+"gold": "introduce-lsmcp.md",
+"type": "heading"
+},
+{
+"query": "TypeScript/JavaScript 拡張ツール",
+"gold": "introduce-lsmcp.md",
+"type": "heading"
+},
+{
+"query": "このとき、人間は見てないしエディタも起動してないので、ビルトインの  ide:   ツールが使えず、型チェックや Lint が貧弱になる",
+"gold": "introduce-lsmcp.md",
+"type": "sentence"
+},
+{
+"query": "簡単に紹介すると Unison ではコードはファイルではなくデータベースで管理されている",
+"gold": "introduce-lsmcp.md",
+"type": "sentence"
+},
+{
+"query": "mizchi/js.mbt で TS の代わりに Moonbit を書く",
+"gold": "introduce-mizchi-js.md",
+"type": "title"
+},
+{
+"query": "mizchi/js/npm/\\",
+"gold": "introduce-mizchi-js.md",
+"type": "heading"
+},
+{
+"query": "再確認した TypeScript の強み",
+"gold": "introduce-mizchi-js.md",
+"type": "heading"
+},
+{
+"query": "それらがまず最短で動くバインディングを作成して、動作確認をします",
+"gold": "introduce-mizchi-js.md",
+"type": "sentence"
+},
+{
+"query": "使用頻度は高くなくてもJSでしかアクセスできないものがあるのが良くないと思い、MDNのビルトイン一覧を確認しながらバインディングを揃えました",
+"gold": "introduce-mizchi-js.md",
+"type": "sentence"
+},
+{
+"query": "similarity-ts でAIと人間が書き散らした重複コードを見つける",
+"gold": "introduce-ts-similarity.md",
+"type": "title"
+},
+{
+"query": "3. より高度な検出",
+"gold": "introduce-ts-similarity.md",
+"type": "heading"
+},
+{
+"query": "1. 型定義リテラルの重複検知の高速化",
+"gold": "introduce-ts-similarity.md",
+"type": "heading"
+},
+{
+"query": "TypeScript 版と同じ結果が出るように差分テストをして、多少の誤差は許容しつつほぼ同じ結果になるように実装しました",
+"gold": "introduce-ts-similarity.md",
+"type": "sentence"
+},
+{
+"query": "実用的なパフォーマンス  : ブルームフィルタとマルチスレッドで約 20 倍の高速化",
+"gold": "introduce-ts-similarity.md",
+"type": "sentence"
+},
+{
+"query": "typescript-mcp で AI に LSP のリファクタリング機能を与える",
+"gold": "introduce-typescript-mcp.md",
+"type": "title"
+},
+{
+"query": "1. セマンティックなファイル操作",
+"gold": "introduce-typescript-mcp.md",
+"type": "heading"
+},
+{
+"query": "2. シンボル操作",
+"gold": "introduce-typescript-mcp.md",
+"type": "heading"
+},
+{
+"query": "モジュールシンボル   ( mcp  typescript  get module symbols )   モジュールのエクスポートを一覧表示",
+"gold": "introduce-typescript-mcp.md",
+"type": "sentence"
+},
+{
+"query": "定義の取得   ( mcp  typescript  get definitions )   シンボルの定義位置を取得",
+"gold": "introduce-typescript-mcp.md",
+"type": "sentence"
+},
+{
+"query": "ボックスモデルの要約による簡易 VRT を作ってみた - @mizchi/visc",
+"gold": "introduce-visc-easy-e2e.md",
+"type": "title"
+},
+{
+"query": "どういうときに使う？",
+"gold": "introduce-visc-easy-e2e.md",
+"type": "heading"
+},
+{
+"query": "CLI でマトリクスでテストする",
+"gold": "introduce-visc-easy-e2e.md",
+"type": "heading"
+},
+{
+"query": "ヒューリスティックなアルゴリズムスコアを多く含むので、アップデートすると出力はたぶん安定しません",
+"gold": "introduce-visc-easy-e2e.md",
+"type": "sentence"
+},
+{
+"query": "2つの VisualNodeGroup[] の距離を計算する",
+"gold": "introduce-visc-easy-e2e.md",
+"type": "sentence"
+},
+{
+"query": "気合の脱 create-react-app からの、AIによるフロントエンド改修の自動化 (株式会社イルシル様)",
+"gold": "irusiru-modernize-cra-to-vite.md",
+"type": "title"
+},
+{
+"query": "ランタイム修正をやっていく",
+"gold": "irusiru-modernize-cra-to-vite.md",
+"type": "heading"
+},
+{
+"query": "計測のための準備",
+"gold": "irusiru-modernize-cra-to-vite.md",
+"type": "heading"
+},
+{
+"query": "<https://developer.mozilla.org/ja/docs/Web/API/Compression Streams API",
+"gold": "irusiru-modernize-cra-to-vite.md",
+"type": "sentence"
+},
+{
+"query": "本記事は、実際に複合的にコード改修とパフォーマンス改善をすると何をやることになるか、という話です",
+"gold": "irusiru-modernize-cra-to-vite.md",
+"type": "sentence"
+},
+{
+"query": "プログラマじゃない人でもAI対話用にJSONを学ぶのが最高効率という提案",
+"gold": "json-for-everyone.md",
+"type": "title"
+},
+{
+"query": "jsonschema の紹介: パワフルな要件定義",
+"gold": "json-for-everyone.md",
+"type": "heading"
+},
+{
+"query": "JSONを理解することで、何ができるか？",
+"gold": "json-for-everyone.md",
+"type": "heading"
+},
+{
+"query": "プログラミング言語だ、と警戒しないでください！JSON単独なら、そう難しいものではありません",
+"gold": "json-for-everyone.md",
+"type": "sentence"
+},
+{
+"query": "要約すると、これは「items というキーで数値もしくは文字列の配列のオブジェクト」になり、この条件を満たすデータは複数パターン存在します",
+"gold": "json-for-everyone.md",
+"type": "sentence"
+},
+{
+"query": "DeepDive Lighthouse",
+"gold": "lighthouse-reading.md",
+"type": "title"
+},
+{
+"query": "ソースコードの Overview",
+"gold": "lighthouse-reading.md",
+"type": "heading"
+},
+{
+"query": "Chrome Devtools Protocol",
+"gold": "lighthouse-reading.md",
+"type": "heading"
+},
+{
+"query": "<https://zenn.dev/mizchi/scraps/feb5d7632ddd81",
+"gold": "lighthouse-reading.md",
+"type": "sentence"
+},
+{
+"query": "計算が重い処理は  core/computed  にあります",
+"gold": "lighthouse-reading.md",
+"type": "sentence"
+},
+{
+"query": "TypeScript 環境構築ガイドラインを書いてLLMに再現させる",
+"gold": "llm-aware-ts-project-starter.md",
+"type": "title"
+},
+{
+"query": "また、そのツールを入れた時に追記するエージェント向けのプロンプトも用意しています",
+"gold": "llm-aware-ts-project-starter.md",
+"type": "sentence"
+},
+{
+"query": "なので、再現性のある環境構築手順を作って LLM に丸投げすることにしました",
+"gold": "llm-aware-ts-project-starter.md",
+"type": "sentence"
+},
+{
+"query": "最速最強の Markdown コンパイラ作るぞ",
+"gold": "markdown-incremental-preview.md",
+"type": "title"
+},
+{
+"query": "異なるライブラリとの比較",
+"gold": "markdown-incremental-preview.md",
+"type": "heading"
+},
+{
+"query": "基本のアイデア: カーソル位置を基準にCSTを作る",
+"gold": "markdown-incremental-preview.md",
+"type": "heading"
+},
+{
+"query": "FFIを使わないピュアなMoonbit実装なので、js/wasm/native でライブラリとしていずれの環境でも使えます",
+"gold": "markdown-incremental-preview.md",
+"type": "sentence"
+},
+{
+"query": "ただ、これ以上高速化するにはマルチスレッドが欲しくなり、Moonbitではこのサポートがまだなのが惜しい気がします",
+"gold": "markdown-incremental-preview.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit言語の最近の変更点(2024/04~2024/08)",
+"gold": "moonbit-202404-202408.md",
+"type": "title"
+},
+{
+"query": "JSON Literal",
+"gold": "moonbit-202404-202408.md",
+"type": "heading"
+},
+{
+"query": "配列リテラルがデフォルトでミュータブルに",
+"gold": "moonbit-202404-202408.md",
+"type": "heading"
+},
+{
+"query": "標準ライブラリの実装を見る限り、基本的に Unit!Error 型に寄せていく方向に見えます",
+"gold": "moonbit-202404-202408.md",
+"type": "sentence"
+},
+{
+"query": "関数型言語から汎用プログラミング言語に寄せた変更と言えそうです",
+"gold": "moonbit-202404-202408.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit Advent Calendar の振り返り ~ はたして実用的な言語なのか",
+"gold": "moonbit-advent-last-day.md",
+"type": "title"
+},
+{
+"query": "MoonBitの新AI エージェント実装「Maria」 by laiso",
+"gold": "moonbit-advent-last-day.md",
+"type": "heading"
+},
+{
+"query": "MoonBitで簡単なLisp処理系を実装する by @nuskey",
+"gold": "moonbit-advent-last-day.md",
+"type": "heading"
+},
+{
+"query": "質問: 来年の安定版 1.0 までに予定している破壊的変更は?",
+"gold": "moonbit-advent-last-day.md",
+"type": "sentence"
+},
+{
+"query": "<https://zenn.dev/4245ryomt/articles/9680434dc60c0c",
+"gold": "moonbit-advent-last-day.md",
+"type": "sentence"
+},
+{
+"query": "moonbitがcomonponent-modelをサポートしたのでjco+TypeScript から呼んでみた",
+"gold": "moonbit-component-model-support.md",
+"type": "title"
+},
+{
+"query": "jco で TypeScript から moonbit component を呼び出す",
+"gold": "moonbit-component-model-support.md",
+"type": "heading"
+},
+{
+"query": "examples/wasi-http",
+"gold": "moonbit-component-model-support.md",
+"type": "heading"
+},
+{
+"query": "Discord で質問しているが、おそらくまだ未対応という気がする？",
+"gold": "moonbit-component-model-support.md",
+"type": "sentence"
+},
+{
+"query": "あと自分しか moonbit について調べてないので、みんなも触ってみてほしい",
+"gold": "moonbit-component-model-support.md",
+"type": "sentence"
+},
+{
+"query": "MoonBit - moon new が生成するテンプレートを理解する",
+"gold": "moonbit-day1.md",
+"type": "title"
+},
+{
+"query": "あとは頑張って",
+"gold": "moonbit-day1.md",
+"type": "heading"
+},
+{
+"query": "README.mbt.md",
+"gold": "moonbit-day1.md",
+"type": "heading"
+},
+{
+"query": "myapp.mbt はルートディレクトリなので同名の  mizchi/myapp  になっています",
+"gold": "moonbit-day1.md",
+"type": "sentence"
+},
+{
+"query": "vscode で extern 関連の警告が出る場合、以下の手順で",
+"gold": "moonbit-day1.md",
+"type": "sentence"
+},
+{
+"query": "MoonBit 最高 2025",
+"gold": "moonbit-is-good-2025.md",
+"type": "title"
+},
+{
+"query": "言語仕様は枯れてきたけど...",
+"gold": "moonbit-is-good-2025.md",
+"type": "heading"
+},
+{
+"query": "言語仕様のドキュメント",
+"gold": "moonbit-is-good-2025.md",
+"type": "heading"
+},
+{
+"query": "非同期が動作するコードは前提が多く大変なので割愛しますが、大体次のようなコードが書けます",
+"gold": "moonbit-is-good-2025.md",
+"type": "sentence"
+},
+{
+"query": "生成コードが小さいのが自分にとって一番嬉しく、 npm に publish するライブラリを Moonbit で書くのも現実的です",
+"gold": "moonbit-is-good-2025.md",
+"type": "sentence"
+},
+{
+"query": "MoonBit で JS FFI を書こう！",
+"gold": "moonbit-js-ffi.md",
+"type": "title"
+},
+{
+"query": "JS FFI 最初の一歩",
+"gold": "moonbit-js-ffi.md",
+"type": "heading"
+},
+{
+"query": "発展編: 例外と非同期",
+"gold": "moonbit-js-ffi.md",
+"type": "heading"
+},
+{
+"query": "#external type MyType  で FFI の外側の値を表現できる",
+"gold": "moonbit-js-ffi.md",
+"type": "sentence"
+},
+{
+"query": "まず、Moonbit の非同期の表現方法を抑えましょう",
+"gold": "moonbit-js-ffi.md",
+"type": "sentence"
+},
+{
+"query": "MoonBit C FFI を使ってみて、libgit2 バインディングを作るまで",
+"gold": "moonbit-libgit2-native-ffi.md",
+"type": "title"
+},
+{
+"query": "Step 5: リポジトリ操作の実装",
+"gold": "moonbit-libgit2-native-ffi.md",
+"type": "heading"
+},
+{
+"query": "Step 6: 高レベル API の実装",
+"gold": "moonbit-libgit2-native-ffi.md",
+"type": "heading"
+},
+{
+"query": "まずは簡単なNativeFFIの解説をして、その後実践的な libgit2 のバインディングを作成してみた話になります",
+"gold": "moonbit-libgit2-native-ffi.md",
+"type": "sentence"
+},
+{
+"query": "MoonBit から C ライブラリを呼び出す方法を、基礎から実践まで段階的に解説します",
+"gold": "moonbit-libgit2-native-ffi.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit を紹介したい with syumai",
+"gold": "moonbit-live-resources.md",
+"type": "title"
+},
+{
+"query": "今日のコンテキスト",
+"gold": "moonbit-live-resources.md",
+"type": "heading"
+},
+{
+"query": "モジュールシステム",
+"gold": "moonbit-live-resources.md",
+"type": "heading"
+},
+{
+"query": "非同期表現/ランタイムが(まだ)ないので、現時点で JS を置き換えるのは難しい",
+"gold": "moonbit-live-resources.md",
+"type": "sentence"
+},
+{
+"query": "上述した通り、現代におけるJavaやPHP、Ruby on Railsなどの立ち位置になるのはちょっと難しいのではないか？と思っています",
+"gold": "moonbit-live-resources.md",
+"type": "sentence"
+},
+{
+"query": "Luna UI - JS/Moonbit のための宣言的UI. 軽量、高速、そして WebComponents First",
+"gold": "moonbit-luna-ui.md",
+"type": "title"
+},
+{
+"query": "実際に動いているデモ",
+"gold": "moonbit-luna-ui.md",
+"type": "heading"
+},
+{
+"query": "ぜひ使ってみてください",
+"gold": "moonbit-luna-ui.md",
+"type": "heading"
+},
+{
+"query": "<https://github.com/moonbitlang/moonbit evolution/issues/19",
+"gold": "moonbit-luna-ui.md",
+"type": "sentence"
+},
+{
+"query": "自分は次にこういうテーマに取り組みたいと思っています",
+"gold": "moonbit-luna-ui.md",
+"type": "sentence"
+},
+{
+"query": "Moonbitのパッケージレジストリである mooncakes.io を眺める",
+"gold": "moonbit-mooncakes.md",
+"type": "title"
+},
+{
+"query": "bobzhang/unmarshal",
+"gold": "moonbit-mooncakes.md",
+"type": "heading"
+},
+{
+"query": "moonbitlang/parser",
+"gold": "moonbit-mooncakes.md",
+"type": "heading"
+},
+{
+"query": "Moonbit の REPL というかインタープリターの実装になっています",
+"gold": "moonbit-mooncakes.md",
+"type": "sentence"
+},
+{
+"query": "<https://mooncakes.io/docs/moonbitlang/core",
+"gold": "moonbit-mooncakes.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit で React アプリを書く",
+"gold": "moonbit-react-app.md",
+"type": "title"
+},
+{
+"query": "余談: Why Moonbit?",
+"gold": "moonbit-react-app.md",
+"type": "heading"
+},
+{
+"query": "実装の詳細: mizchi/js.mbt",
+"gold": "moonbit-react-app.md",
+"type": "heading"
+},
+{
+"query": "<https://github.com/mizchi/moonbit react example",
+"gold": "moonbit-react-app.md",
+"type": "sentence"
+},
+{
+"query": "React を書いたことがある人なら、以下のコードを見れば理解できると思います",
+"gold": "moonbit-react-app.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit moon cli の便利機能達 - 組み込み lint, bench, snapshot, coverage, doc",
+"gold": "moonbit-useful-tips.md",
+"type": "title"
+},
+{
+"query": "moon run --target でターゲットを指定",
+"gold": "moonbit-useful-tips.md",
+"type": "heading"
+},
+{
+"query": "moon check による型チェックと警告",
+"gold": "moonbit-useful-tips.md",
+"type": "heading"
+},
+{
+"query": "moonbit では現状 Lint という概念がなく、型チェックとlintが一体化しています",
+"gold": "moonbit-useful-tips.md",
+"type": "sentence"
+},
+{
+"query": "let mut prev slash = false",
+"gold": "moonbit-useful-tips.md",
+"type": "sentence"
+},
+{
+"query": "vite-plugin-moonbit で moonbit でフロントエンドを作る",
+"gold": "moonbit-vite-plugin.md",
+"type": "title"
+},
+{
+"query": "何ができるか",
+"gold": "moonbit-vite-plugin.md",
+"type": "heading"
+},
+{
+"query": "1. インストール",
+"gold": "moonbit-vite-plugin.md",
+"type": "heading"
+},
+{
+"query": "moon build   target js   watch  すると、watch モードでビルドするので、これを vite 側が child\\ process で握って、vite 側のロガーに流しています",
+"gold": "moonbit-vite-plugin.md",
+"type": "sentence"
+},
+{
+"query": "node と moonbit をインストールしていて、 moon  コマンドが実行できることを確認してください",
+"gold": "moonbit-vite-plugin.md",
+"type": "sentence"
+},
+{
+"query": "Deno で browser-use を自作してみた (勉強用)",
+"gold": "my-own-browser-run.md",
+"type": "title"
+},
+{
+"query": "Tool Runner",
+"gold": "my-own-browser-run.md",
+"type": "heading"
+},
+{
+"query": "スクリーンショットからレイアウト分析",
+"gold": "my-own-browser-run.md",
+"type": "heading"
+},
+{
+"query": "claude のスクリーンショットと xpath を渡す",
+"gold": "my-own-browser-run.md",
+"type": "sentence"
+},
+{
+"query": "puppeteer でスクリーンショットを取って claude 3.7 に送信",
+"gold": "my-own-browser-run.md",
+"type": "sentence"
+},
+{
+"query": "ジャイアントパンダに注意 - Next.js のビルド改善 (株式会社GiXo様)",
+"gold": "next-ci-tuning-case-gixo.md",
+"type": "title"
+},
+{
+"query": "計測・調査フェーズ",
+"gold": "next-ci-tuning-case-gixo.md",
+"type": "heading"
+},
+{
+"query": "問題が発生した経緯の分析と、再発防止",
+"gold": "next-ci-tuning-case-gixo.md",
+"type": "heading"
+},
+{
+"query": "モノレポ内にとくに重いアプリケーションが一つあり、これを調査・解決してほしい",
+"gold": "next-ci-tuning-case-gixo.md",
+"type": "sentence"
+},
+{
+"query": "postcss loader がパフォーマンスにおいて支配的",
+"gold": "next-ci-tuning-case-gixo.md",
+"type": "sentence"
+},
+{
+"query": "opencode + kimi-k2 を動かす",
+"gold": "opencode-with-kimi-k2.md",
+"type": "title"
+},
+{
+"query": "おまけ: ai-sdk+kimi-k2",
+"gold": "opencode-with-kimi-k2.md",
+"type": "heading"
+},
+{
+"query": "最初に: openrouter の API KEY",
+"gold": "opencode-with-kimi-k2.md",
+"type": "heading"
+},
+{
+"query": "これは RooCode を検証してるときにひねり出した ai sdk から使う版",
+"gold": "opencode-with-kimi-k2.md",
+"type": "sentence"
+},
+{
+"query": "最初に OpenRouter にクレジットをいれて API キーを払い出しておきます",
+"gold": "opencode-with-kimi-k2.md",
+"type": "sentence"
+},
+{
+"query": "PGlite + pgvector で100行で実装するベクトル検索 (node/deno/drizzle)",
+"gold": "pglite-vector-search.md",
+"type": "title"
+},
+{
+"query": "pglite + pgvector のセットアップ",
+"gold": "pglite-vector-search.md",
+"type": "heading"
+},
+{
+"query": "pglite + pgvector",
+"gold": "pglite-vector-search.md",
+"type": "heading"
+},
+{
+"query": "CERATE EXTENSION vector  で初期化します",
+"gold": "pglite-vector-search.md",
+"type": "sentence"
+},
+{
+"query": "Drizzle上だとここがちょっとテクニカルですが、うまく型が付いてます",
+"gold": "pglite-vector-search.md",
+"type": "sentence"
+},
+{
+"query": "クリックしたDOM要素の Playwright Locator を生成する",
+"gold": "playwright-selector-generator.md",
+"type": "title"
+},
+{
+"query": "便利に運用するためには、アクセシビリティを意識する",
+"gold": "playwright-selector-generator.md",
+"type": "heading"
+},
+{
+"query": "実践的な使い方",
+"gold": "playwright-selector-generator.md",
+"type": "heading"
+},
+{
+"query": "与えられたDOM要素が、レイアウト上どのようなパスでたどり着けるかを解析して、その要素を Playwirght が選択するための locator コードを生成します",
+"gold": "playwright-selector-generator.md",
+"type": "sentence"
+},
+{
+"query": "セマンティックな要素( section ,  main ,  article 等)を指定",
+"gold": "playwright-selector-generator.md",
+"type": "sentence"
+},
+{
+"query": "実践: await using でリソース開放",
+"gold": "practical-await-using.md",
+"type": "title"
+},
+{
+"query": "await using 版",
+"gold": "practical-await-using.md",
+"type": "heading"
+},
+{
+"query": "try finally で puppeteer を終了したい",
+"gold": "practical-await-using.md",
+"type": "heading"
+},
+{
+"query": "<https://zenn.dev/ventus/articles/ts5 2 using preview",
+"gold": "practical-await-using.md",
+"type": "sentence"
+},
+{
+"query": "見慣れない書き方なのでちょっと頭の体操感があるんですが、仕組みを理解すれば「リソース確保時に開放処理が予約されている」と認識することができます",
+"gold": "practical-await-using.md",
+"type": "sentence"
+},
+{
+"query": "自分が Moonbit 言語について知っていること",
+"gold": "practical-moonbit.md",
+"type": "title"
+},
+{
+"query": "Moonbit の現時点の実用性",
+"gold": "practical-moonbit.md",
+"type": "heading"
+},
+{
+"query": "情報ソースとコミュニティ",
+"gold": "practical-moonbit.md",
+"type": "heading"
+},
+{
+"query": "最初はこの構造のまま直接 lib 部分が公開されるのかなと思ったが、試した限りちょっと違った",
+"gold": "practical-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "<https://discord.com/invite/CVFRavvRav",
+"gold": "practical-moonbit.md",
+"type": "sentence"
+},
+{
+"query": "Prisma TypedSQL をクエリビルダとしてのみ運用する",
+"gold": "prisma-as-query-builder-only.md",
+"type": "title"
+},
+{
+"query": "prisma の最小プロジェクトのセットアップ",
+"gold": "prisma-as-query-builder-only.md",
+"type": "heading"
+},
+{
+"query": "prisma/sql/addPost.sql から TS 関数を生成",
+"gold": "prisma-as-query-builder-only.md",
+"type": "heading"
+},
+{
+"query": "prisma generate   sql   no engine  の吐き出すコードを確認する",
+"gold": "prisma-as-query-builder-only.md",
+"type": "sentence"
+},
+{
+"query": "node modules/.pnpm/@prisma+client@5.19.0 prisma@5.19.0/node modules/.prisma/client  みたいなパスに、実体が書き出されている",
+"gold": "prisma-as-query-builder-only.md",
+"type": "sentence"
+},
+{
+"query": "puppeteer をローカルプロキシとしてリクエストを監視＆モックする",
+"gold": "puppeteer-as-localproxy.md",
+"type": "title"
+},
+{
+"query": "puppeteer network interception",
+"gold": "puppeteer-as-localproxy.md",
+"type": "heading"
+},
+{
+"query": "ブラウザからリクエスト内容を奪う方法",
+"gold": "puppeteer-as-localproxy.md",
+"type": "heading"
+},
+{
+"query": "Chromeのデバッガープロトコルで動いてるのでネットワークが発火するまでのコールスタックが取れます",
+"gold": "puppeteer-as-localproxy.md",
+"type": "sentence"
+},
+{
+"query": "世のローカルプロキシツールは DNS の設定を要求してきます",
+"gold": "puppeteer-as-localproxy.md",
+"type": "sentence"
+},
+{
+"query": "React Ink によるリッチ CLI (ClaudeCodeの裏側のアレ)",
+"gold": "react-ink-renderer-for-ai-age.md",
+"type": "title"
+},
+{
+"query": "実例でみる React Ink",
+"gold": "react-ink-renderer-for-ai-age.md",
+"type": "heading"
+},
+{
+"query": "実際に作ってみた例",
+"gold": "react-ink-renderer-for-ai-age.md",
+"type": "heading"
+},
+{
+"query": "中では yoga というレイアウトエンジンが使われており、これは React Native でも使われているもので、 Web で  display: flex  を使ったときと同じレイアウト計算モデルになります",
+"gold": "react-ink-renderer-for-ai-age.md",
+"type": "sentence"
+},
+{
+"query": "AI 系 CLI  : claude code、gemini cli、GitHub Copilot CLI",
+"gold": "react-ink-renderer-for-ai-age.md",
+"type": "sentence"
+},
+{
+"query": "Remix on CloudflarePages + Prisma + Supabase で銀の弾丸を目指す 20240828",
+"gold": "remix-cloudflare-pages-supabase.md",
+"type": "title"
+},
+{
+"query": "Cloudflare Pages にデプロイしてからDBアクセス",
+"gold": "remix-cloudflare-pages-supabase.md",
+"type": "heading"
+},
+{
+"query": "大まかな手順",
+"gold": "remix-cloudflare-pages-supabase.md",
+"type": "heading"
+},
+{
+"query": "今のままだと何もなさすぎるので form ぐらいは作りたい",
+"gold": "remix-cloudflare-pages-supabase.md",
+"type": "sentence"
+},
+{
+"query": "TODO: Prisma Accelerate から Supabase の接続は明示的なアクセス許可を出すべきだと思うのだが、どうなっているのか",
+"gold": "remix-cloudflare-pages-supabase.md",
+"type": "sentence"
+},
+{
+"query": "本文抽出ライブラリの readability.js を DOM 非依存に書き直す(WIP)",
+"gold": "rewrite-readability-for-ai.md",
+"type": "title"
+},
+{
+"query": "Readability.js とは",
+"gold": "rewrite-readability-for-ai.md",
+"type": "heading"
+},
+{
+"query": "書き直した手順",
+"gold": "rewrite-readability-for-ai.md",
+"type": "heading"
+},
+{
+"query": "AIモデルではなくルールベースだが、かなり精度がでる",
+"gold": "rewrite-readability-for-ai.md",
+"type": "sentence"
+},
+{
+"query": "見てわかるが html to md のせいか自分のせいか不明だがリンクが壊れている",
+"gold": "rewrite-readability-for-ai.md",
+"type": "sentence"
+},
+{
+"query": "Server-Timing ヘッダの情報をフロントエンド解析に使う",
+"gold": "server-timing-header-for-frontend.md",
+"type": "title"
+},
+{
+"query": "JS の PerformanceObserver から Server-Timing にアクセスする",
+"gold": "server-timing-header-for-frontend.md",
+"type": "heading"
+},
+{
+"query": "Chrome DevTools でこの値を確認する",
+"gold": "server-timing-header-for-frontend.md",
+"type": "heading"
+},
+{
+"query": "gutPost は getUser に依存して、適当に遅延を入れて解決",
+"gold": "server-timing-header-for-frontend.md",
+"type": "sentence"
+},
+{
+"query": "実験用の hono + deno で雑なサーバーをでっち上げます",
+"gold": "server-timing-header-for-frontend.md",
+"type": "sentence"
+},
+{
+"query": "Python + VSCode の環境構築 20240604",
+"gold": "setup-python-20240604.md",
+"type": "title"
+},
+{
+"query": "追記: uvicorn を叩くより fastapi-cli のが良さそう",
+"gold": "setup-python-20240604.md",
+"type": "heading"
+},
+{
+"query": "テストランナーの使い方を確認",
+"gold": "setup-python-20240604.md",
+"type": "heading"
+},
+{
+"query": "<https://marketplace.visualstudio.com/items?itemName=ms python.mypy type checker",
+"gold": "setup-python-20240604.md",
+"type": "sentence"
+},
+{
+"query": "<https://rinatz.github.io/python book/ch08 02 pytest/",
+"gold": "setup-python-20240604.md",
+"type": "sentence"
+},
+{
+"query": "モジュールを外から見た振る舞いだけAIレビューさせる smoke-review",
+"gold": "smoke-review-for-filtering-context.md",
+"type": "title"
+},
+{
+"query": "Smoke Testing の概念",
+"gold": "smoke-review-for-filtering-context.md",
+"type": "heading"
+},
+{
+"query": "ライブラリユーザー視点で型定義だけレビューさせる",
+"gold": "smoke-review-for-filtering-context.md",
+"type": "heading"
+},
+{
+"query": "<https://github.com/mizchi/subagents smoke review poc",
+"gold": "smoke-review-for-filtering-context.md",
+"type": "sentence"
+},
+{
+"query": "例えば zod の使い方を知ってる人は多くても、 zod の実装まで確認する人は少数のはずです",
+"gold": "smoke-review-for-filtering-context.md",
+"type": "sentence"
+},
+{
+"query": "フロントエンドの段階的モダナイズ、のための自走設計 (株式会社スタディスト様)",
+"gold": "studist-modernize-frontend.md",
+"type": "title"
+},
+{
+"query": "JSONSchema 違反 / Mock が再現しない",
+"gold": "studist-modernize-frontend.md",
+"type": "heading"
+},
+{
+"query": "一旦全部やってみる",
+"gold": "studist-modernize-frontend.md",
+"type": "heading"
+},
+{
+"query": "いつもはパフォーマンス視点で仕事にかかるのですが、今回はマクロな設計視点でソースコードを読んでいきます",
+"gold": "studist-modernize-frontend.md",
+"type": "sentence"
+},
+{
+"query": "で、この redoc cli が deprecated",
+"gold": "studist-modernize-frontend.md",
+"type": "sentence"
+},
+{
+"query": "Unison 言語から、「次」の言語を考察したい",
+"gold": "think-next-language-with-unison.md",
+"type": "title"
+},
+{
+"query": "UCMの何が嬉しいのか",
+"gold": "think-next-language-with-unison.md",
+"type": "heading"
+},
+{
+"query": "最初に: 頭をリセットする",
+"gold": "think-next-language-with-unison.md",
+"type": "heading"
+},
+{
+"query": "既存の言語に似ていて、コンパイラの警告がある程度賢ければ、学習量の不利は踏み倒せる",
+"gold": "think-next-language-with-unison.md",
+"type": "sentence"
+},
+{
+"query": "<https://www.unison lang.org/docs/install instructions/",
+"gold": "think-next-language-with-unison.md",
+"type": "sentence"
+},
+{
+"query": "Moonbit の宣言的UIライブラリ Rabbit-TEA を試してみる",
+"gold": "try-moonbit-rabbit-tea.md",
+"type": "title"
+},
+{
+"query": "@tea.startup は何してる？",
+"gold": "try-moonbit-rabbit-tea.md",
+"type": "heading"
+},
+{
+"query": "簡単なカウンターの例",
+"gold": "try-moonbit-rabbit-tea.md",
+"type": "heading"
+},
+{
+"query": "Moonbit は Rust 風の構文だが、キーワード引数があるので、props 相当の部分がここで補完可能なインターフェースが実現できている",
+"gold": "try-moonbit-rabbit-tea.md",
+"type": "sentence"
+},
+{
+"query": "<https://github.com/moonbit community/rabbit tea",
+"gold": "try-moonbit-rabbit-tea.md",
+"type": "sentence"
+},
+{
+"query": "TS で Effect System を作ってみた",
+"gold": "ts-effect-system-more.md",
+"type": "title"
+},
+{
+"query": "利点: 型による副作用の記述を強制する",
+"gold": "ts-effect-system-more.md",
+"type": "heading"
+},
+{
+"query": "利点: 実行時にハンドラが同期か非同期かどうかを決定",
+"gold": "ts-effect-system-more.md",
+"type": "heading"
+},
+{
+"query": "型シグネチャにないもの は  yield  できない",
+"gold": "ts-effect-system-more.md",
+"type": "sentence"
+},
+{
+"query": "program 定義とは別に、エフェクトの宣言とは別に対応するハンドラ(EffectHandler)を注入する",
+"gold": "ts-effect-system-more.md",
+"type": "sentence"
+},
+{
+"query": "AsyncDisposableStack でリソース確保処理を書く",
+"gold": "ts-using-resource-management.md",
+"type": "title"
+},
+{
+"query": "応用: あえてブラウザを停止させず、 Ctrl-C で明示的に止めたい",
+"gold": "ts-using-resource-management.md",
+"type": "heading"
+},
+{
+"query": "AsyncDisposableStack と SuppressedError",
+"gold": "ts-using-resource-management.md",
+"type": "heading"
+},
+{
+"query": "全部の asyncDispose が終わったあとに  SuppressedError  を throw する",
+"gold": "ts-using-resource-management.md",
+"type": "sentence"
+},
+{
+"query": "SuppressedError  の  .suppressed  で  Error   SuppressedError  が入れ子になっている",
+"gold": "ts-using-resource-management.md",
+"type": "sentence"
+},
+{
+"query": "TS の using でプリントデバッグを確率的にサンプリングして出力する",
+"gold": "ts-using-sampling-logger.md",
+"type": "title"
+},
+{
+"query": "やりたかったこと",
+"gold": "ts-using-sampling-logger.md",
+"type": "heading"
+},
+{
+"query": "前提知識: using と Symbol.dispose",
+"gold": "ts-using-sampling-logger.md",
+"type": "heading"
+},
+{
+"query": "using log = createSampleLog<number (3, 128);",
+"gold": "ts-using-sampling-logger.md",
+"type": "sentence"
+},
+{
+"query": "Cline が勝手にデバッグログを仕込みまくって膨大なログを食ってトークンを使いまくるので、そもそも出力するログに上限を設定したい",
+"gold": "ts-using-sampling-logger.md",
+"type": "sentence"
+},
+{
+"query": "tsgo をビルドしてLSPから会話する",
+"gold": "tsgo-try-and-internal.md",
+"type": "title"
+},
+{
+"query": "@typescript/native-preview を動かす。",
+"gold": "tsgo-try-and-internal.md",
+"type": "heading"
+},
+{
+"query": "typescript-go を読む",
+"gold": "tsgo-try-and-internal.md",
+"type": "heading"
+},
+{
+"query": "推論は同じように動いてそうだが、 ファイル出力は怪しい",
+"gold": "tsgo-try-and-internal.md",
+"type": "sentence"
+},
+{
+"query": "<https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.native preview",
+"gold": "tsgo-try-and-internal.md",
+"type": "sentence"
+},
+{
+"query": "TS特化Clineプログラミング(テキスト版)",
+"gold": "typescript-for-cline.md",
+"type": "title"
+},
+{
+"query": "効くプロンプト: 詳細指示を docs/\\.md に分割",
+"gold": "typescript-for-cline.md",
+"type": "heading"
+},
+{
+"query": "うまくかない: 型だけで設計",
+"gold": "typescript-for-cline.md",
+"type": "heading"
+},
+{
+"query": "<https://github.com/mizchi/readability  は本文抽出+markdown変換 CLI",
+"gold": "typescript-for-cline.md",
+"type": "sentence"
+},
+{
+"query": "理由: 無関係な指示が常に存在すると、次第にすべてを無視するようになっていく",
+"gold": "typescript-for-cline.md",
+"type": "sentence"
+},
+{
+"query": "TypeScriptの型と値とバリデーション",
+"gold": "typescript-type-value-validation.md",
+"type": "title"
+},
+{
+"query": "openapi",
+"gold": "typescript-type-value-validation.md",
+"type": "heading"
+},
+{
+"query": "値バリデーションと型推論",
+"gold": "typescript-type-value-validation.md",
+"type": "heading"
+},
+{
+"query": "例えば jsonschema の  \"type\": \"int\"  には数値の最大/最小を制限する min/max を記述できますが、これを型に落とし込むには依存型という特殊な型システムを持つ言語でないと表現できず、 TypeScript では単に number 型になります",
+"gold": "typescript-type-value-validation.md",
+"type": "sentence"
+},
+{
+"query": "同じ対象に対して複数の場所で違うバリデータや型を定義すると、必ずどこかで食い違って事故が起きます",
+"gold": "typescript-type-value-validation.md",
+"type": "sentence"
+},
+{
+"query": "GiHhub+Zenn 連携で vscode markdown で画像を Ctrl-V したい",
+"gold": "vscode-zenn-image-paste.md",
+"type": "title"
+},
+{
+"query": "事前に  chmod +x .git/hooks/pre commit  しておく",
+"gold": "vscode-zenn-image-paste.md",
+"type": "sentence"
+},
+{
+"query": "絶対パスっぽくなってるしまってるので一応確認したが、これでもプロジェクトルートからの相対パスを解決していて、vscode 上のマウスホバーのプレビューも成功する",
+"gold": "vscode-zenn-image-paste.md",
+"type": "sentence"
+},
+{
+"query": "Svelte と Vue Vapor Mode の出力を比較する",
+"gold": "vue-vapor-vs-svelte-output.md",
+"type": "title"
+},
+{
+"query": "部分的な動的更新",
+"gold": "vue-vapor-vs-svelte-output.md",
+"type": "heading"
+},
+{
+"query": "Vue Vapor",
+"gold": "vue-vapor-vs-svelte-output.md",
+"type": "heading"
+},
+{
+"query": "Svelteの知識があるので、自分の為のキャッチアップとして、Vue Vapor と Svelte 出力の比較を行う",
+"gold": "vue-vapor-vs-svelte-output.md",
+"type": "sentence"
+},
+{
+"query": "<https://vapor repl.netlify.app/  の  @2ed0be8",
+"gold": "vue-vapor-vs-svelte-output.md",
+"type": "sentence"
+},
+{
+"query": "wa.dev に WebAssembly Component Model のライブラリを公開してみた",
+"gold": "wasm-component-wadev.md",
+"type": "title"
+},
+{
+"query": "Step 4: スタブの実装",
+"gold": "wasm-component-wadev.md",
+"type": "heading"
+},
+{
+"query": "必要なツール",
+"gold": "wasm-component-wadev.md",
+"type": "heading"
+},
+{
+"query": "ターミナルで装飾する用の制御コードつきで吐いています",
+"gold": "wasm-component-wadev.md",
+"type": "sentence"
+},
+{
+"query": "wa.dev は、WebAssembly Component Model のパッケージレジストリ",
+"gold": "wasm-component-wadev.md",
+"type": "sentence"
+},
+{
+"query": "wasm のプラットフォームに spin と wasmCloud を試してみる",
+"gold": "wasm-platform.md",
+"type": "title"
+},
+{
+"query": "install",
+"gold": "wasm-platform.md",
+"type": "heading"
+},
+{
+"query": "Deploy",
+"gold": "wasm-platform.md",
+"type": "heading"
+},
+{
+"query": "一行だけ変更して  spin build && spin cloud deploy",
+"gold": "wasm-platform.md",
+"type": "sentence"
+},
+{
+"query": "これらのコードは次のマクロでコードとして展開されている",
+"gold": "wasm-platform.md",
+"type": "sentence"
+},
+{
+"query": "ネストオブジェクトの罠 RE: TypeScriptで「選択肢」の定義をEnum的な定数にまとめる",
+"gold": "you-cant-mangle-nested-obj.md",
+"type": "title"
+},
+{
+"query": "最適化可能なコード",
+"gold": "you-cant-mangle-nested-obj.md",
+"type": "heading"
+},
+{
+"query": "元記事のコードを minify するとどうなるか",
+"gold": "you-cant-mangle-nested-obj.md",
+"type": "heading"
+},
+{
+"query": "Terser などの minifier では、残念ながらオブジェクトにアクセスするレベルでの使用/未使用は最適化の範囲外で、理由としては getter による迂回の可能性が言語仕様レベルで否定できないからです",
+"gold": "you-cant-mangle-nested-obj.md",
+"type": "sentence"
+},
+{
+"query": "例えばサーバーのバリデーション用の巨大な jsonschema を自前のコンバータでネストオブジェクトに変換してクライアントで使う、というようなシナリオで、実際にパフォーマンスが悪化したのを見たことがあります",
+"gold": "you-cant-mangle-nested-obj.md",
+"type": "sentence"
+},
+{
+"query": "Cloudflare版GTMのZarazの挙動確認&自前プラグインを実装",
+"gold": "zaraz-is-edge-gtm.md",
+"type": "title"
+},
+{
+"query": "Zaraz と Managed Components",
+"gold": "zaraz-is-edge-gtm.md",
+"type": "heading"
+},
+{
+"query": "Zaraz で GA4 を動かす時に何が起こるか",
+"gold": "zaraz-is-edge-gtm.md",
+"type": "heading"
+},
+{
+"query": "<https://www.cloudflare.com/ja jp/application services/products/zaraz/",
+"gold": "zaraz-is-edge-gtm.md",
+"type": "sentence"
+},
+{
+"query": "自分もサードパーティスクリプトの開発者を経験したからこそ分かる部分と、まだわかってない部分がある",
+"gold": "zaraz-is-edge-gtm.md",
+"type": "sentence"
+}
+]
